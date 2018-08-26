@@ -1,0 +1,185 @@
+;; General stuff
+
+(setq default-major-mode 'text-mode)	; new buffers are text mode by default
+(setq case-fold-search t)		; make searches case sensitive
+(setq scroll-step 1)			; scroll one line off screen
+(setq line-number-mode t)		; line numbers always on
+(setq column-number-mode t)		; column numbers always on
+(display-time)                          ; display time in the modeline
+
+(define-key function-key-map [backspace] "\177")
+(define-key function-key-map [delete] "\C-d")
+
+(global-font-lock-mode t)
+(setq font-lock-support-mode 'lazy-lock-mode)
+(setq font-lock-maximum-decoration t)
+(setq-default auto-fill-hook 'do-auto-fill)
+
+
+(autoload 'c++-mode  "cc-mode" "C++ Editing Mode" t)
+(autoload 'c-mode    "cc-mode" "C Editing Mode" t)
+;(autoload 'objc-mode "cc-mode" "Objective-C Editing Mode" t)
+
+;(autoload 'perl-mode "cperl-mode" "alternate mode for editing Perl programs" t)
+;(autoload 'folding-mode          "~/.folding.el" "Folding mode" t)
+;(autoload 'turn-off-folding-mode "~/.folding.el" "Folding mode" t)
+;(autoload 'turn-on-folding-mode  "~/.folding.el" "Folding mode" t)
+
+(load "~/.jam-mode.el")
+
+(load "~/.folding.el")
+
+(folding-mode-add-find-file-hook)
+
+(load "~/.cperl-mode.el")
+(autoload 'perl-mode "cperl-mode"
+  "alternate mode for editing Perl programs" t)
+ 
+(setq cperl-hairy t)
+(setq auto-mode-alist
+      (append '(("\\.[pP][Llm]$" . perl-mode))
+              auto-mode-alist ))
+(setq interpreter-mode-alist
+      (append interpreter-mode-alist
+              '(("miniperl" . perl-mode))))     
+
+
+;(load "~/.matlab.el")
+(autoload 'matlab-mode "~/.matlab.el" "Enter MATLAB mode." t)
+(autoload 'matlab-shell "matlab" "Interactive MATLAB mode." t)
+
+;; User Level customizations (You need not use them all):
+;;   (setq matlab-indent-function t)    ; if you want function bodies indented
+(setq matlab-verify-on-save-flag nil) ; turn off auto-verify on save
+
+
+(defun my-matlab-mode-hook ()
+  (setq fill-column 100))               ; where auto-fill should wrap
+(add-hook 'matlab-mode-hook 'my-matlab-mode-hook)
+(defun my-matlab-shell-mode-hook ()
+  '())
+(add-hook 'matlab-shell-mode-hook 'my-matlab-shell-mode-hook)
+
+
+(setq emacs-lisp-mode-hook '(lambda () (font-lock-mode 1)))
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+;(setq gnus-select-method '(nntp "news.colostate.edu"))
+(if window-system
+   (progn
+      (setq default-frame-alist
+            '((width . 80)
+              (height . 35)
+              (foreground-color . "White")
+              (background-color . "black")
+              (cursor-color . "Green")
+              ))))
+
+;; C mode customizations
+
+(setq auto-mode-alist
+      (append '(("\\.C$"  . c++-mode)
+		("\\.H$"  . c++-mode)
+		("\\.cc$" . c++-mode)
+		("\\.hh$" . c++-mode)
+		("\\.c$"  . c++-mode)
+		("\\.h$"  . c++-mode)
+		("\\.m$"  . matlab-mode)
+		) auto-mode-alist))
+
+(setq-default c-basic-offset 2)
+
+
+(defconst my-c-style
+  '(
+    (c-tab-always-indent       . t)
+    (c-hanging-braces-alist    . ((substatement-open after)
+				  (brace-list-open)
+				  (class-open after)
+				  (class-close)
+				  (namespace-open after)
+				  (namespace-close)
+				  (inline-open)
+				  (inline-close)))
+    (c-hanging-colons-alist    . ((member-init-intro)
+				  (inher-intro)
+				  (case-label after)
+				  (access-label after)))
+    (c-cleanup-list            . ((brace-else-brace)
+				  (brace-elseif-brace)
+				  (defun-close-semi)
+				  (scope-operator)))
+    )
+  "My C++ Programming Style")
+
+(defun my-c-mode-common-hook ()
+  (c-add-style "Sean" my-c-style t)
+  (c-set-style "Sean")
+  (setq font-lock-use-fonts t)
+  (setq font-lock-use-colors nil)
+  (setq font-lock-use-maximal-decoration t)
+  (setq font-lock-auto-fontify t)
+  (c-toggle-auto-hungry-state 1)
+)
+
+(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+
+(load "~/.emacs-slashdot")
+(load "~/.emacs-ctypes")
+(ctypes-read-file "~/.emacs-types" nil t t)
+(setq ctypes-write-types-at-exit "~/.emacs-types")
+(load "~/.emacs-keywords")
+(load "~/.emacs-colors")
+
+(defun my-perl-mode-hook ()
+  (font-lock-mode)
+  (auto-fill-mode)
+)
+
+(add-hook 'perl-mode-hook 'my-perl-mode-hook)
+
+
+(global-set-key [f1] 'text-mode			)
+(global-set-key [f2] 'c++-mode			)
+(global-set-key [f3] 'goto-line                 )
+(global-set-key [f4] 'ctypes-define-type        )
+(global-set-key [f5] 'query-replace		)
+(global-set-key [f6] 'center-line               )
+(global-set-key [f7] 'shell-command		)
+(global-set-key [f8] 'compile			)
+(global-set-key [f9] 'next-error                )
+(global-set-key [f10] 'goto-line                )
+(global-set-key [f12] 'call-last-kbd-macro      )
+(global-set-key [M-f7] 'font-lock-fontify-buffer)
+(global-set-key [M-f8] 'font-lock-mode          )
+(global-set-key [DEL]  'delete-char             )
+
+(fset 'insert-sig1
+   [24 105 1 11 126 47 77 97 105 108 47 115 105 103 49 return])
+
+(fset 'u-title
+   [32 21 50 48 95 1 21 50 48 95 32 8388728 99 101 110 116 101 114 45 108 105 110 101 return 1 47 47])
+
+(fset 'e-title
+   [32 21 50 53 61 1 21 50 53 61 32 8388728 99 101 110 116 101 114 45 108 105 110 101 return])
+
+
+(fset 'begin-long-comment
+   [?/ ?* return ?\C-u ?7 ?8 ?_])
+
+(fset 'end-long-comment
+   [?\C-u ?7 ?8 ?_ return ?* ?/])
+(custom-set-variables
+ '(font-lock-maximum-decoration t)
+ '(compile-command "jam")
+ '(frame-background-mode (quote dark))
+ '(delete-selection-mode nil nil (delsel))
+ '(scroll-bar-mode (quote right)))
+(custom-set-faces
+ '(default ((t (:foreground "grey" :background "black"))))
+ '(message-header-to-face ((((class color) (background light)) (:bold t :foreground "red" :background "blue"))))
+ '(font-lock-constant-face ((t (:foreground "blue"))))
+ '(message-header-subject-face ((((class color) (background light)) (:bold t :italic nil :foreground "red" :background "blue"))))
+ '(message-separator-face ((((class color) (background light)) (:foreground "yellow" :background "blue"))))
+ '(font-lock-builtin-face ((t (:foreground "cyan"))))
+ '(makefile-space-face ((((class color)) (:underline nil :background "red")))))
+

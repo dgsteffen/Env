@@ -1,0 +1,27 @@
+[user]
+	name = Dave Steffen
+	email = tkd-physics@comcast.net
+[merge]
+	summary = true
+[status]
+	color = auto
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+[alias]
+     df   = difftool --tool=kdiff3 -y
+     get  = fetch origin --prune
+     cleanup = clean -fdx
+#    st   = status
+#    stat = status
+     ci   = commit
+#    cia  = commit -a
+#    br   = branch
+     co   = checkout
+#    df   = diff
+#    lg   = log -p
+#    gk   = log  --graph --abbrev-commit --pretty=oneline --decorate --all
+#    sb   = show-branch --color --more=99 --sha1-name
+[core]
+	excludesfile = /home/dgsteffen/.gitignore

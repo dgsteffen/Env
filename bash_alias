@@ -1,0 +1,121 @@
+alias m='less'
+alias n='less -S'
+alias more='less'
+alias h='history'
+alias cp='cp -i'
+alias mv='mv -i'
+
+
+alias ls='ls -F --color=auto --group-directories-first'
+alias cls='clear;ls'
+
+alias ssh='ssh -X'
+
+
+alias bamboo='ssh -AX bamboo'
+
+alias cloud1='ssh swteam-cloud1'
+alias cloud2='ssh swteam-cloud2'
+alias cloud3='ssh swteam-cloud3'
+
+
+alias print='enscript -rG2 '
+
+alias dvips='dvips -t letter'
+
+function e() { /home/dgsteffen/bin/emacs-wrap.py $@ & }
+
+function kdvi () { okular $1 > /dev/null 2>&1 ; }
+
+function calc() { localc $1 & }
+
+alias citroster='localc ~/TKD/CIT_Roster/cit_roster.ods'
+
+### File Filtering
+
+alias kfile='drm $1'
+function kfiler () {   find ./ -name "$1" -exec drm {} \; ; }
+alias kt='kfile *~'
+alias ktr='kfiler "*~"'
+alias kcore='kfile core*'
+alias kcorer='kfiler "core*"'
+alias klog='kfile log.*'
+alias klogr='kfiler "log.*"'
+
+alias tidyup='ktr ; kcorer ; klogr ;'
+
+alias kpdf='okular'
+
+
+### GIT
+alias gitclean='git clean -fdx'
+alias git_date='git checkout $(git rev-list -n1 --before="Mon Dec 31  2007 23:59:59") '
+alias kgdiff='git df'
+alias g='gitk --all &'
+alias gst='git status'
+
+function gup() { git rebase origin/$1 $1 ; }
+
+
+#### CODING
+
+
+
+#### NBS
+
+#alias nb='mk -pckj 6 --show-errors --cache=yes'
+
+
+
+function fcode () { find ./ -name "*.[ch]pp" -exec grep $1 {} \; -print ; }
+
+
+alias outright='for x in *.out; do diff -q $x $x.right; done;'
+alias outcanon='for x in *.out; do diff -q $x $x.canon; done;'
+alias newright='for x in *.out; do mv -f $x $x.right; done;'
+
+alias ibcs_clean='drm *.out *.kmz *.msm *.xml *.json *.dat'
+
+
+
+
+### Valgrindy
+
+alias vg='valgrind --tool=memcheck --leak-check=yes --suppressions=$HOME/.valg-supress '
+export VGLV="valgrind --tool=memcheck --leak-check=yes --suppressions=$HOME/.valg-supress  --logfile=log.valg"
+
+alias vglog='vg --log-file=log.valg '
+#--show-reachable=yes
+
+function vgsuppress() { valgrind --tool=memcheck --leak-check=yes  \
+--gen-suppressions=yes --suppressions=$HOME/.valg-supress   $1 ; }
+
+alias massif='valgrind --tool=massif --depth=8 --stacks=no'
+
+#alias cg='callgrind --dump-instr=yes --dump-line=yes'
+alias cg='valgrind --tool=callgrind --dump-instr=yes --dump-line=yes'
+
+function kcg () { kcachegrind $1 > /dev/null 2>&1 &  }
+function massvis () { massif-visualizer $1 > /dev/null 2>&1 & }
+
+alias codecheck='cppcheck --force --template gcc -q --enable=all -j6 . 2>&1  | grep -v "not found"'
+
+
+## Unit Testy
+
+alias utrp='utparse --nostats --nosort'
+
+alias sed_ex="sed -i 's/foo/foo_bar/g' somefile.module "
+
+function utrun() { $1 --log_level=test_suite --report_level=detailed --build_info=yes --catch_system_error=yes ;}
+
+######## Stuff
+##
+##  random password: cat /dev/urandom | base64 | head -c 12; echo
+
+alias projector_on='vnc_client.py " xtightvncviewer tritium "'
+alias projector_off='vnc_client.py "killall xtightvncviewer"'
+alias vncserver='x11vnc -display :0'
+
+
+# xinput set-prop "SynPS/2 Synaptics TouchPad" "Synaptics Finger" 50 60 255

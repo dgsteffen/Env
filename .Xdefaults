@@ -1,0 +1,115 @@
+! Parts (C) 1996 By Greg J. Badros <gjb@cs.duke.edu>
+! Modification for Linux-Mandrake by Chmouel Boudjnah <chmouel@mandraksoft.com>
+! You may use this file as specified under the GNU General Public License
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! emacs, xemacs
+
+! Generics
+emacs.foreground:                       yellow
+emacs.background:                       black
+emacs.region.attributeForeground:       yellow
+emacs.region.attributeBackground:       DarkOrchid4
+emacs.pointerColor:                     Red
+emacs.cursorColor:                      blue
+
+!emacs*font: fixed
+!emacs*font: -misc-fixed-medium-*-normal-*-13-*-*-*-*-*-*-*
+!emacs.font: -adobe-courier-medium-r-normal-*-14-*-*-*-*-*-*-*
+!emacs.font: -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
+!emacs.font: -misc-fixed-*-*-*-*-*-140-*-*-*-*-*-*
+
+
+!emacs*scrollbar.attributeForeground: yellow
+!emacs*scrollbar.activeForeground: yellow
+
+Emacs.title: Emacs
+emacs.geometry:  121x79+500+0
+!emacs.pane.menubar.foreground: goldenrod
+!emacs.pane.menubar.background: midnightblue
+
+!emacs*popup*Foreground: green
+!emacs*popup*Background: DarkOrchid4
+
+
+!emacs*XmScrollBar.Foreground: yellow
+
+!emacs*XmScrollBar.translations: #override \n\
+!     <Btn1Down>:     PageDownOrRight(0)    \n\
+!     <Btn3Down>:     PageUpOrLeft(0)
+
+
+
+!emacs.XlwScrollBar.SliderStyle:    dimple
+!emacs.XmScrollBar.Foreground: red
+!emacs.XlScrollBar.Foreground: red
+
+
+
+!Emacs*menubar*buttonForeground:              green
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! gnuplot
+gnuplot*background: black
+gnuplot*textColor: white
+gnuplot*borderColor: white
+gnuplot*noraise: on
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! xload
+xload*background: midnight blue
+xload*foreground: red
+xload*highlight: green
+xload*borderColor: Navy
+xload*showLabel: false
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! xterm (and friends)
+
+XTerm*highlightSelection:  true
+! Uncomment this to use color for the bold attribute
+XTerm*VT100*colorBDMode:  on
+XTerm*VT100*colorBD:  blue
+! Uncomment this to use color for underline attribute
+XTerm.VT100*colorULMode:  on
+XTerm.VT100*underLine:  off
+XTerm*VT100*colorUL:  magenta
+! Uncomment this to display the scrollbar 
+XTerm*scrollBar:  true
+XTerm*background:black
+XTerm*foreground:white
+XTerm*cursorColor:yellow
+XTerm*pointerColorBackground:blue
+
+! This resource specifies whether or not to ignore the 'alternate screen'
+! of applications such as vi.  When it is on, these applications will restore
+! the contents of the screen when they are exited to what they were before
+! they were started.  When it is off, the contents of vi will remain on the
+! screen after the program is quit.
+XTerm.VT100.titeInhibit:  true
+
+! Uncomment this to turn off color mode in your xterms
+!XTerm.VT100*colorMode:  off
+XTerm.VT100*dynamicColors:  on
+
+! Number of lines of scrollback to save
+XTerm*saveLines:	1500
+
+xterm*reverseWrap:	true
+
+*visualBell:		true
+*scrollTtyOutput:	False
+*scrollKey:		True
+Scrollbar.JumpCursor:	True
+
+! Suppr support.
+*VT100.Translations: #override \
+<Key>BackSpace: string(0x7F)\n\
+<Key>Delete: string("\033[3~")\n\
+<Key>Home: string("\033[1~")\n\
+<Key>End: string("\033[4~")
+
+
+!!!!
+!!!! Git stuff
+
+gitk.geometry:  +3000+0
