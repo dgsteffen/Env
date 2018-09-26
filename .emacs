@@ -32,8 +32,6 @@
 (add-hook 'emacs-startup-hook
           (lambda () (delete-other-windows)) t)
 
-
-
 (autoload 'c++-mode  "cc-mode" "C++ Editing Mode" t)
 (autoload 'c-mode    "cc-mode" "C Editing Mode" t)
 
@@ -302,8 +300,8 @@
 (global-set-key [(meta c)] 'delete-indentation       )
 (global-set-key "\C-z" 'undo)
 ;(global-set-key (kbd "C-c v") 'comment-dwim)
-;(global-set-key "" nil)
 
+(global-set-key [C-z] 'undo )
 (global-set-key [f1] 'auto-fill-mode		)
 (global-set-key [M-f1] 'delete-indentation      )
 

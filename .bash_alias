@@ -11,14 +11,6 @@ alias cls='clear;ls'
 
 alias ssh='ssh -X'
 
-
-alias bamboo='ssh -AX bamboo'
-
-alias cloud1='ssh swteam-cloud1'
-alias cloud2='ssh swteam-cloud2'
-alias cloud3='ssh swteam-cloud3'
-
-
 alias print='enscript -rG2 '
 
 alias dvips='dvips -t letter'
