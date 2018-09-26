@@ -15,7 +15,7 @@ alias print='enscript -rG2 '
 
 alias dvips='dvips -t letter'
 
-function e() { /home/dgsteffen/bin/emacs-wrap.py $@ & }
+function e() { ~/bin/emacs-wrap.py $@ 2>&1 | grep -v Gtk-WARNING & }
 
 function kdvi () { okular $1 > /dev/null 2>&1 ; }
 
@@ -60,16 +60,12 @@ function gup() { git rebase origin/$1 $1 ; }
 
 
 function fcode () { find ./ -name "*.[ch]pp" -exec grep $1 {} \; -print ; }
+function gcode () { find ./ -name "*.[ch]pp" -exec grep $1 {} \; -print ; }
 
 
 alias outright='for x in *.out; do diff -q $x $x.right; done;'
 alias outcanon='for x in *.out; do diff -q $x $x.canon; done;'
 alias newright='for x in *.out; do mv -f $x $x.right; done;'
-
-alias ibcs_clean='drm *.out *.kmz *.msm *.xml *.json *.dat'
-
-
-
 
 ### Valgrindy
 
@@ -99,15 +95,4 @@ alias utrp='utparse --nostats --nosort'
 
 alias sed_ex="sed -i 's/foo/foo_bar/g' somefile.module "
 
-function utrun() { $1 --log_level=test_suite --report_level=detailed --build_info=yes --catch_system_error=yes ;}
 
-######## Stuff
-##
-##  random password: cat /dev/urandom | base64 | head -c 12; echo
-
-alias projector_on='vnc_client.py " xtightvncviewer tritium "'
-alias projector_off='vnc_client.py "killall xtightvncviewer"'
-alias vncserver='x11vnc -display :0'
-
-
-# xinput set-prop "SynPS/2 Synaptics TouchPad" "Synaptics Finger" 50 60 255
