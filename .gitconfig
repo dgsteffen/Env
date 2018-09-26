@@ -1,6 +1,6 @@
 [user]
 	name = Dave Steffen
-	email = tkd-physics@comcast.net
+	email = dsteffen@scitec.com
 [merge]
 	summary = true
 [status]
@@ -9,8 +9,14 @@
 	diff = auto
 	status = auto
 	branch = auto
+[diff]
+	tool = meld
+[difftool]
+	prompt = false
+[difftool "meld"]
+	cmd = meld "$LOCAL" "$REMOTE"
 [alias]
-     df   = difftool --tool=kdiff3 -y
+     df   = difftool
      get  = fetch origin --prune
      cleanup = clean -fdx
 #    st   = status
@@ -19,9 +25,8 @@
 #    cia  = commit -a
 #    br   = branch
      co   = checkout
-#    df   = diff
 #    lg   = log -p
 #    gk   = log  --graph --abbrev-commit --pretty=oneline --decorate --all
-#    sb   = show-branch --color --more=99 --sha1-name
+     sb   = show-branch --color --more=99 --sha1-name
 [core]
 	excludesfile = /home/dgsteffen/.gitignore
