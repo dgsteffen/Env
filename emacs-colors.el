@@ -18,13 +18,13 @@
 (setq show-paren-mismatch-face 'show-paren-mismatch-face)
 
 (copy-face 'default  'font-lock-emphasized-face)
-(set-face-foreground 'font-lock-emphasized-face "blue")
+(set-face-foreground 'font-lock-emphasized-face "DeepSkyBlue")
 (set-face-background 'font-lock-emphasized-face "black")
 (setq font-lock-string-face 'font-lock-emphasized-face)
 
 ;; stuff in quotes
 (copy-face 'italic  'font-lock-other-emphasized-face)
-(set-face-foreground 'font-lock-other-emphasized-face "blue")
+(set-face-foreground 'font-lock-other-emphasized-face "DeepSkyBlue")
 (set-face-background 'font-lock-other-emphasized-face "black")
 (setq font-lock-string-face 'font-lock-other-emphasized-face)
 
