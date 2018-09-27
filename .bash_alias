@@ -47,20 +47,20 @@ alias g='gitk --all &'
 alias gst='git status'
 
 function gup() { git rebase origin/$1 $1 ; }
+function remast() { for x in $@; do echo $x; echo; git rebase -f  master $x ; done ; }
+function tomast () { for x in $@; do echo $x; echo ;git branch -f $x master; done ; }
 
+function rebi() { git rebase -i HEAD~$1 ; }
 
 #### CODING
 
+function gcode () { find ./ -name "*.[ch]*" | xargs grep -H "$1"  2>&1 | grep -v "No such file or directory" ; }
+function ghead () { find ./ -name "*.h*" | xargs grep -H "$1"  ; }
+function gimpl () { find ./ -name "*.c*" | xargs grep -H "$1"  ; }
 
-
-#### NBS
-
-#alias nb='mk -pckj 6 --show-errors --cache=yes'
-
-
-
-function fcode () { find ./ -name "*.[ch]pp" -exec grep $1 {} \; -print ; }
-function gcode () { find ./ -name "*.[ch]pp" -exec grep $1 {} \; -print ; }
+function glcode () { find ./ -name "*.[ch]*" | xargs grep -lH "$1"  ; }
+function glhead () { find ./ -name "*.h*" | xargs grep -lH "$1"  ; }
+function glimpl () { find ./ -name "*.c*" | xargs grep -lH "$1"  ; }
 
 
 alias outright='for x in *.out; do diff -q $x $x.right; done;'
