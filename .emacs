@@ -301,8 +301,6 @@
    [?} ?\M-b ?\\ ?b ?e ?g ?i ?n ?{ ?\C-a ?\C-k ?\C-k ?\C-y ?\C-y up ?\M-f ?\M-b delete delete delete delete delete ?e ?n ?d ?\C-a return up])
 
 
-(global-set-keu [C-down-mouse-2] 'mouse-buffer-menu)
-
 (global-set-key [(ctrl z)] 'fill-paragraph )
 (global-set-key [?\s- ] 'underscore-dammit-str)
 (global-set-key [(meta g)] 'goto-line)
