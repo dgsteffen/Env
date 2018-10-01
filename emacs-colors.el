@@ -7,7 +7,7 @@
 
 ;; comments
 (copy-face 'italic  'font-lock-comment-face)
-(set-face-foreground 'font-lock-comment-face "magenta")
+(set-face-foreground 'font-lock-comment-face "DarkOrange1")
 (set-face-background 'font-lock-comment-face "black")
 (setq font-lock-comment-face 'font-lock-comment-face)
 

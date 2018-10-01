@@ -24,6 +24,10 @@
 (setq-default save-place nil)
 (setq save-place nil)
 
+;; Delete on insertion mode
+(delete-selection-mode +1)
+
+
 ;; turn off toolbar
 (tool-bar-mode 0)
 
@@ -39,8 +43,8 @@
 (if window-system
    (progn
       (setq default-frame-alist
-	    '((width . 121)
-	      (height . 76)
+	    '((width . 123)
+	      (height . 45)
 	      (foreground-color . "White")
 	      (background-color . "black")
 	      (cursor-color . "Green")
@@ -70,7 +74,7 @@
 		("\\.m$"  . matlab-mode)
 		("SCon" . python-mode)
 		("\\.ln$" . python-mode)
-		("scons.config" . python-mode)
+		("CMakeLists.txt" . makefile-mode)
 		) auto-mode-alist))
 
 
@@ -102,7 +106,7 @@
 (defun my-c-mode-common-hook ()
   (c-add-style "Dave" my-c-style t)
   (c-set-style "Dave")
-  (setq c-basic-offset 2)
+  (setq c-basic-offset 4)
   (setq font-lock-use-fonts t)
   (setq font-lock-use-colors nil)
   (setq font-lock-use-maximal-decoration t)
@@ -114,7 +118,7 @@
   (c-toggle-auto-newline nil)
   (c-set-offset 'namespace-open 0)
 
-  (setq fill-column 100 )
+  (setq fill-column 120 )
 
 )
 
@@ -175,10 +179,12 @@
 
 (defun compile-next-makefile ()                                                           
   (interactive)                                                                           
-  (let* ((default-directory (or (upward-find-file "mk") "."))                       
-         (compile-command (concat "cd " default-directory " && "                          
+  (let* ((default-directory (or (upward-find-file "build") "."))                       
+         (compile-command (concat "cd " default-directory "/build && "                          
                                   compile-command)))                                      
     (compile compile-command))) 
+
+(setq compile-command "make ThreadedMFDfilter -j 4")
 
 (defun std-compile ()
   "Like 'compile', but uses compile-pkg"
@@ -294,6 +300,9 @@
 (fset 'begend
    [?} ?\M-b ?\\ ?b ?e ?g ?i ?n ?{ ?\C-a ?\C-k ?\C-k ?\C-y ?\C-y up ?\M-f ?\M-b delete delete delete delete delete ?e ?n ?d ?\C-a return up])
 
+
+(global-set-keu [C-down-mouse-2] 'mouse-buffer-menu)
+
 (global-set-key [(ctrl z)] 'fill-paragraph )
 (global-set-key [?\s- ] 'underscore-dammit-str)
 (global-set-key [(meta g)] 'goto-line)
@@ -329,7 +338,7 @@
 (global-set-key [  f7] 'squash-commit           )
 (global-set-key [M-f7] 'font-lock-fontify-buffer)
 
-(global-set-key [f8] 'compile )
+(global-set-key [f8] 'compile-next-makefile )
 (global-set-key [M-f8] 'font-lock-mode          )
 
 (global-set-key [f9] 'next-error                )
@@ -351,12 +360,10 @@
  '(auto-compression-mode t nil (jka-compr))
  '(canlock-password "945e30dda39dadb8c2000ad016d020610315a68e")
  '(case-fold-search t)
- '(compile-command "make ")
  '(cperl-electric-parens-string "\"\"")
  '(cperl-extra-newline-before-brace t)
  '(current-language-environment "Latin-1")
  '(default-input-method "latin-1-prefix")
- '(delete-selection-mode nil nil (delsel))
  '(frame-background-mode (quote dark))
  '(global-font-lock-mode t nil (font-lock))
  '(save-place nil nil (saveplace))
