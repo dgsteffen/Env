@@ -1,24 +1,36 @@
 [user]
 	name = Dave Steffen
 	email = dsteffen@scitec.com
-[merge]
-	summary = true
 [status]
 	color = auto
 [color]
 	diff = auto
 	status = auto
 	branch = auto
+# [diff]
+# 	tool = meld
+# [difftool]
+# 	prompt = false
+# [difftool "meld"]
+# 	cmd = meld "$LOCAL" "$REMOTE"
+
 [diff]
-	tool = meld
-[difftool]
-	prompt = false
-[difftool "meld"]
-	cmd = meld "$LOCAL" "$REMOTE"
+	tool = kdiff3
+[difftool "kdiff3"]
+	trustExitCode = false
+
+[merge]
+	summary = true
+	tool = kdiff3
+[mergetool "kdiff3"]
+	trustExitCode = false
+
+
 [alias]
      df   = difftool
      get  = fetch origin --prune
      cleanup = clean -fdx
+     rebc = rebase --continue
 #    st   = status
 #    stat = status
      ci   = commit

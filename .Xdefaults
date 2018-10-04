@@ -24,7 +24,7 @@ emacs.cursorColor:                      blue
 !emacs*scrollbar.activeForeground: yellow
 
 Emacs.title: Emacs
-emacs.geometry:  121x44+2500+30
+emacs.geometry:  121x48+2500+30
 !emacs.pane.menubar.foreground: goldenrod
 !emacs.pane.menubar.background: midnightblue
 
