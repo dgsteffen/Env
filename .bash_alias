@@ -28,7 +28,7 @@ alias citroster='localc ~/TKD/CIT_Roster/cit_roster.ods'
 alias kfile='drm $1'
 function kfiler () {   find ./ -name "$1" -exec drm {} \; ; }
 alias kt='kfile *~'
-alias ktr='kfiler "*~"'
+alias ktr='kfiler "*~"; kfiler "*.orig"'
 alias kcore='kfile core*'
 alias kcorer='kfiler "core*"'
 alias klog='kfile log.*'
