@@ -24,20 +24,40 @@
 (setq-default save-place nil)
 (setq save-place nil)
 
+;; Highlights current line
+;(global-hl-line-mode +1)
+;(set-face-background hl-line-face "#333964")
 ;; Delete on insertion mode
 (delete-selection-mode +1)
 
 
-;; turn off toolbar
+;; turn off the tool bar
 (tool-bar-mode 0)
+
+;; kill the auto save
+
+(setq auto-save-default nil)
+
+;; Hmm -- mouse buffer menu (ctrl-left click)
+;; "ctrl - left click" buffer menu: increase number of items shown
+;; set max length of this list. default 20. see next.
+(setq mouse-buffer-menu-maxlen 30)
+;; set # buffer in a mode before grouping begins. takes precedence over previous
+;; set to 1 to always group by mode. default 4
+(setq mouse-buffer-menu-mode-mult 8)
+
+
+;; Cause the ron to be highlighted and prevent region-based commands
+;; from running when the mark isn't active.
+
+(pending-delete-mode t)
+ (setq transient-mark-mode t)
 
 
 ;; Don't split the frame when starting with multiple files
 (add-hook 'emacs-startup-hook
           (lambda () (delete-other-windows)) t)
 
-(autoload 'c++-mode  "cc-mode" "C++ Editing Mode" t)
-(autoload 'c-mode    "cc-mode" "C Editing Mode" t)
 
 
 (if window-system
@@ -50,6 +70,9 @@
 	      (cursor-color . "Green")
 	      ))))
 
+;;(add-to-list 'default-frame-alist '(foreground-color . "green"))
+;;(add-to-list 'default-frame-alist '(background-color . "#000000"))
+
 ;; adjust this path:
 ;(add-to-list 'load-path "/home/dgsteffen/local/share/emacs")
 ;(autoload 'compilation-always-kill-mode "compilation-always-kill" nil t)
@@ -61,22 +84,38 @@
 (setq emacs-lisp-mode-hook '(lambda () (font-lock-mode 1)))
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
+;; show parens
+(show-paren-mode t)
+
 ;; C mode customizations
 
+(autoload 'c++-mode  "cc-mode" "C++ Editing Mode" t)
+(autoload 'c-mode    "cc-mode" "C Editing Mode" t)
 (setq auto-mode-alist
-      (append '(("\\.C$"  . c++-mode)
-		("\\.H$"  . c++-mode)
-		("\\.cc$" . c++-mode)
-		("\\.hh$" . c++-mode)
-		("\\.c$"  . c++-mode)
-		("\\.t$"  . c++-mode)
-		("\\.h$"  . c++-mode)
-		("\\.m$"  . matlab-mode)
-		("SCon" . python-mode)
-		("\\.ln$" . python-mode)
-		("CMakeLists.txt" . makefile-mode)
-		) auto-mode-alist))
+      (append '(("\\.C\\'" . c++-mode)
+                ("\\.cc\\'" . c++-mode)
+                ("\\.cpp\\'" . c++-mode)
+                ("\\.cs\\'" . c++-mode)
+                ("\\.ii\\'" . c++-mode)
+                ("\\.c\\'" . c++-mode)
+                ("\\.h\\'"  . c++-mode)
+                ("\\.hxx\\'"  . c++-mode)
+                ("\\.cc$" . c++-mode)
+                ("\\.hh$" . c++-mode)
+                ("\\.c$"  . c++-mode)
+                ("\\.t$"  . c++-mode)
+                ("\\.h$"  . c++-mode)
+                ("\\.pl$" . cperl-mode)
+                ("makefile" . makefile-mode)
+                )
+              auto-mode-alist))
 
+(setq-default indent-tabs-mode nil)
+
+
+(which-function-mode 1)
+
+(setq make-backup-files nil)
 
 
 (defconst my-c-style
@@ -101,7 +140,7 @@
 
 (setq indent-tabs-mode nil)
 
-(which-function-mode 1)
+
 
 (defun my-c-mode-common-hook ()
   (c-add-style "Dave" my-c-style t)
@@ -260,6 +299,14 @@
 (fset 'cleanup-file
    [?\M-x ?i ?n ?d ?e ?n ?t ?- ?f ?i ?l ?e return ?\M-x ?w ?h ?i ?t ?e ?s ?p ?a ?c ?e ?- ?c ?l ?e ?a ?n ?u ?p return])
 
+;(if "~/.customs.emacs"
+;    (load "~/.customs.emacs" t t))
+
+;; Art: added with v. 23.1 to make spacebar complete filenames (8/17/2009)
+(progn
+ (define-key minibuffer-local-completion-map " " 'minibuffer-complete-word)
+ (define-key minibuffer-local-filename-completion-map " " 'minibuffer-complete-word)
+ (define-key minibuffer-local-must-match-filename-map " " 'minibuffer-complete-word))
 
 
 (defun dave-cleanup ()
@@ -312,6 +359,11 @@
 (global-set-key [f1] 'auto-fill-mode		)
 (global-set-key [M-f1] 'delete-indentation      )
 
+global-set-key [(ctrl \;)] 'dabbrev-expand )
+
+(global-set-key (kbd "C-c C-x") 'comment-region)
+(global-set-key (kbd "C-c C-z") 'uncomment-region)
+
 (global-set-key [S-f1] 'type_include_norm )
 (global-set-key [C-f1] 'type_include_sys )
 
@@ -347,8 +399,9 @@
 (global-set-key [f12] 'call-last-kbd-macro      )
 
 
+(global-set-key [?\s-\H- ] 'underscore-dammit-str)
 
- 
+
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.

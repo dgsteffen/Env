@@ -24,7 +24,7 @@ emacs.cursorColor:                      blue
 !emacs*scrollbar.activeForeground: yellow
 
 Emacs.title: Emacs
-emacs.geometry:  121x79+500+0
+emacs.geometry:  121x44+2500+30
 !emacs.pane.menubar.foreground: goldenrod
 !emacs.pane.menubar.background: midnightblue
 
@@ -107,9 +107,3 @@ Scrollbar.JumpCursor:	True
 <Key>Delete: string("\033[3~")\n\
 <Key>Home: string("\033[1~")\n\
 <Key>End: string("\033[4~")
-
-
-!!!!
-!!!! Git stuff
-
-gitk.geometry:  +3000+0

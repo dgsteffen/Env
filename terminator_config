@@ -1,0 +1,20 @@
+[global_config]
+[keybindings]
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      profile = default
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+      size = 1300, 600
+[plugins]
+[profiles]
+  [[default]]
+    background_darkness = 0.81
+    background_image = None
+    background_type = transparent
+    font = Liberation Mono 12
+    use_system_font = False
