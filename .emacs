@@ -75,6 +75,7 @@
 
 ;; adjust this path:
 ;(add-to-list 'load-path "/home/dgsteffen/local/share/emacs")
+(add-to-list 'load-path "/usr/share/cmake/editors/emacs")
 ;(autoload 'compilation-always-kill-mode "compilation-always-kill" nil t)
 ;(compilation-always-kill-mode 1)
 
@@ -91,6 +92,7 @@
 
 (autoload 'c++-mode  "cc-mode" "C++ Editing Mode" t)
 (autoload 'c-mode    "cc-mode" "C Editing Mode" t)
+(autoload 'cmake-mode "cmake-mode" "CMakeFile Editing Mode" t)
 (setq auto-mode-alist
       (append '(("\\.C\\'" . c++-mode)
                 ("\\.cc\\'" . c++-mode)
@@ -107,6 +109,7 @@
                 ("\\.h$"  . c++-mode)
                 ("\\.pl$" . cperl-mode)
                 ("makefile" . makefile-mode)
+                ("CMakeLists.txt" . cmake-mode)
                 )
               auto-mode-alist))
 
@@ -223,7 +226,7 @@
                                   compile-command)))                                      
     (compile compile-command))) 
 
-(setq compile-command "make ThreadedMFDfilter -j 4")
+(setq compile-command "make ThreadedMFDfilter -j 8")
 
 (defun std-compile ()
   "Like 'compile', but uses compile-pkg"
@@ -355,14 +358,16 @@
 (global-set-key "\C-z" 'undo)
 ;(global-set-key (kbd "C-c v") 'comment-dwim)
 
+(global-set-key (kbd "C-c C-x") 'comment-region)
+(global-set-key (kbd "C-c C-z") 'uncomment-region)
+
 (global-set-key [C-z] 'undo )
 (global-set-key [f1] 'auto-fill-mode		)
 (global-set-key [M-f1] 'delete-indentation      )
 
-global-set-key [(ctrl \;)] 'dabbrev-expand )
+(global-set-key [(ctrl \;)] 'dabbrev-expand )
 
-(global-set-key (kbd "C-c C-x") 'comment-region)
-(global-set-key (kbd "C-c C-z") 'uncomment-region)
+
 
 (global-set-key [S-f1] 'type_include_norm )
 (global-set-key [C-f1] 'type_include_sys )
@@ -378,6 +383,7 @@ global-set-key [(ctrl \;)] 'dabbrev-expand )
 
 (global-set-key [f5] 'replace-string		)
 (global-set-key [M-f5] 'query-replace		)
+(global-set-key [C-f5] 'query-replace		) ; because RH / gnome?
 
 (global-set-key [f6] 'make-frame-command        )
 (global-set-key [C-f6] 'fixup-commit           )
