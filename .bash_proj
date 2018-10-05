@@ -1,0 +1,15 @@
+#
+#  bash_alias "temporary" stuff, to change per project and at a whim.
+#
+
+export OCEANA='/home/dsteffen/code/oceana'
+
+
+alias cdmfd='cd ~/code/oceana/MFDfilter'
+
+alias mkmfd='cd ~/code/oceana/build; make ThreadedMFDfilter -j8'
+alias mkoc='cd ~/code/oceana/build; make -j8'
+
+alias demogui='cd $OCEANA/MFDfilter/demogui'
+
+alias c='cd ..'
