@@ -10,8 +10,10 @@ if [[ $DAVE ]]; then
     echo "By Your Command"
 else
     export DAVE=1 ;
-    export PATH=.:$HOME/bin:/usr/local/dev/bin:$PATH ;
 fi
+
+export PATH=.:$HOME/bin:$HOME/local/bin:/usr/local/bin:$PATH ;
+
 
 export EDITOR=emacs
 

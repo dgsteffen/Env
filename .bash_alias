@@ -28,11 +28,12 @@ alias citroster='localc ~/TKD/CIT_Roster/cit_roster.ods'
 alias kfile='drm $1'
 function kfiler () {   find ./ -name "$1" -exec drm {} \; ; }
 alias kt='kfile *~'
-alias ktr='kfiler "*~"; kfiler "*.orig"'
-alias kcore='kfile core*'
-alias kcorer='kfiler "core*"'
+alias ktr='kfiler "*~"; kfiler "*.orig"; kfiler "*.BACKUP*"; kfiler "*.BASE*"; kfiler "*.REMOTE*"; kfiler "*.LOCAL*"; '
+alias kcore='kfile core.*'
+alias kcorer='kfiler "core.[0-9]*"; kfiler "vgcore.[0-9]*"; '
 alias klog='kfile log.*'
 alias klogr='kfiler "log.*"'
+alias kmergr='kfiler "*.BACKUP*"; kfiler "*.BASE*"; kfiler "*.REMOTE*"; kfiler "*.LOCAL*"; '
 
 alias tidyup='ktr ; kcorer ; klogr ;'
 
@@ -49,8 +50,10 @@ alias gst='git status'
 function gup() { git rebase origin/$1 $1 ; }
 function remast() { for x in $@; do echo $x; echo; git rebase -f  master $x ; done ; }
 function tomast () { for x in $@; do echo $x; echo ;git branch -f $x master; done ; }
-
+function upmast () { git fetch; git rebase -f master remotes/origin/master ; }
 function rebi() { git rebase -i HEAD~$1 ; }
+function rebn() { git rebase -i HEAD~$1 ; }
+function rebb() { git rebase -i $1 ; }
 
 #### CODING
 
@@ -86,13 +89,14 @@ alias cg='valgrind --tool=callgrind --dump-instr=yes --dump-line=yes'
 function kcg () { kcachegrind $1 > /dev/null 2>&1 &  }
 function massvis () { massif-visualizer $1 > /dev/null 2>&1 & }
 
-alias codecheck='cppcheck --force --template gcc -q --enable=all -j6 . 2>&1  | grep -v "not found"'
-
+alias codecheckj='cppcheck --force --template gcc -q --enable=all -j6 . 2>&1  | grep -v "not found"'
+alias codecheck='cppcheck --force --template gcc -q --enable=all . 2>&1  | grep -v "not found"'
 
 ## Unit Testy
 
 alias utrp='utparse --nostats --nosort'
 
 alias sed_ex="sed -i 's/foo/foo_bar/g' somefile.module "
+
 
 

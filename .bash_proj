@@ -6,6 +6,7 @@ export OCEANA='/home/dsteffen/code/oceana'
 
 
 alias cdmfd='cd ~/code/oceana/MFDfilter'
+alias cdoc='cd $OCEANA'
 
 alias mkmfd='cd ~/code/oceana/build; make ThreadedMFDfilter -j8'
 alias mkoc='cd ~/code/oceana/build; make -j8'
@@ -13,3 +14,9 @@ alias mkoc='cd ~/code/oceana/build; make -j8'
 alias demogui='cd $OCEANA/MFDfilter/demogui'
 
 alias c='cd ..'
+
+alias mount_shared="sudo mount -v -t cifs '//192.168.1.74/DATA SHARE' /mnt/data_share -o username=dsteffen,domain=NT_DOMAIN,sec=ntlmssp,uid=1000,gid=46,iocharset=utf8,rw,noauto"
+
+alias sshbldr='ssh -Y dsteffen@192.168.3.205'
+
+DOCKER_REGISTRY_URL="localhost:5000/"

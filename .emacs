@@ -25,11 +25,12 @@
 (setq save-place nil)
 
 ;; Highlights current line
-;(global-hl-line-mode +1)
-;(set-face-background hl-line-face "#333964")
+;;(global-hl-line-mode +1)
+;;(set-face-background hl-line-face "#333964")
 ;; Delete on insertion mode
 (delete-selection-mode +1)
 
+(display-time-mode 1)
 
 ;; turn off the tool bar
 (tool-bar-mode 0)
@@ -54,6 +55,17 @@
  (setq transient-mark-mode t)
 
 
+;; load emacs 24's package system. Add MELPA repository.
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (add-to-list
+   'package-archives
+   ;; '("melpa" . "http://stable.melpa.org/packages/") ; many packages won't show if using stable
+   '("melpa" . "http://melpa.milkbox.net/packages/")
+   t))
+
+(require 'protobuf-mode)
+
 ;; Don't split the frame when starting with multiple files
 (add-hook 'emacs-startup-hook
           (lambda () (delete-other-windows)) t)
@@ -70,12 +82,26 @@
 	      (cursor-color . "Green")
 	      ))))
 
+;(set-face-foreground 'modeline "yellow")
+;(set-face-background 'modeline "purple")
+;(set-face-background 'modeline-inactive "light blue")
+
+;; Use C-x k to kill buffers for emacsclients
+;; (add-hook 'server-switch-hook
+;;             (lambda ()
+;;               (when (current-local-map)
+;;                 (use-local-map (copy-keymap (current-local-map))))
+;; 	      (when server-buffer-clients
+;; 		(local-set-key (kbd "C-x k") 'server-edit))))
+
+
 ;;(add-to-list 'default-frame-alist '(foreground-color . "green"))
 ;;(add-to-list 'default-frame-alist '(background-color . "#000000"))
 
 ;; adjust this path:
-;(add-to-list 'load-path "/home/dgsteffen/local/share/emacs")
+(add-to-list 'load-path "/home/dgsteffen/local/share/emacs/26.1/site-lisp")
 (add-to-list 'load-path "/usr/share/cmake/editors/emacs")
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/")
 ;(autoload 'compilation-always-kill-mode "compilation-always-kill" nil t)
 ;(compilation-always-kill-mode 1)
 
@@ -89,6 +115,7 @@
 (show-paren-mode t)
 
 ;; C mode customizations
+(add-hook 'c++-mode-hook #'modern-c++-font-lock-mode)
 
 (autoload 'c++-mode  "cc-mode" "C++ Editing Mode" t)
 (autoload 'c-mode    "cc-mode" "C Editing Mode" t)
@@ -108,13 +135,14 @@
                 ("\\.t$"  . c++-mode)
                 ("\\.h$"  . c++-mode)
                 ("\\.pl$" . cperl-mode)
+                ("\\.proto" . protobuf-mode)
                 ("makefile" . makefile-mode)
                 ("CMakeLists.txt" . cmake-mode)
                 )
-              auto-mode-alist))
+              auto-mode-alist)
+      )
 
 (setq-default indent-tabs-mode nil)
-
 
 (which-function-mode 1)
 
@@ -138,6 +166,7 @@
 				  (brace-elseif-brace)
 				  (defun-close-semi)
 				  (scope-operator)))
+
     )
   "My C++ Programming Style")
 
@@ -158,14 +187,23 @@
   (setq indent-tabs-mode nil)
   (set-language-environment '"UTF-8")
   (c-toggle-auto-newline nil)
-  (c-set-offset 'namespace-open 0)
+  (c-set-offset 'namespace-open -4)
 
-  (setq fill-column 120 )
+  (setq fill-column 100 )
 
 )
 
+(defconst my-protobuf-style
+  '((c-basic-offset . 2)
+    (indent-tabs-mode . nil)))
 
-;; compiling
+(add-hook 'protobuf-mode-hook
+          (lambda () (c-add-style "my-style" my-protobuf-style t)))
+
+
+;;compiling
+
+
 (setq  compilation-scroll-output t)
 
 
@@ -226,7 +264,7 @@
                                   compile-command)))                                      
     (compile compile-command))) 
 
-(setq compile-command "make ThreadedMFDfilter -j 8")
+(setq compile-command "make -j8")
 
 (defun std-compile ()
   "Like 'compile', but uses compile-pkg"
@@ -358,6 +396,8 @@
 (global-set-key "\C-z" 'undo)
 ;(global-set-key (kbd "C-c v") 'comment-dwim)
 
+(global-set-key [down-mouse-8] 'mouse-buffer-menu)
+
 (global-set-key (kbd "C-c C-x") 'comment-region)
 (global-set-key (kbd "C-c C-z") 'uncomment-region)
 
@@ -410,10 +450,10 @@
 
 
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(auto-compression-mode t nil (jka-compr))
  '(canlock-password "945e30dda39dadb8c2000ad016d020610315a68e")
  '(case-fold-search t)
@@ -423,6 +463,7 @@
  '(default-input-method "latin-1-prefix")
  '(frame-background-mode (quote dark))
  '(global-font-lock-mode t nil (font-lock))
+ '(package-selected-packages (quote (dockerfile-mode modern-cpp-font-lock)))
  '(save-place nil nil (saveplace))
  '(save-place-version-control (quote never))
  '(scroll-bar-mode (quote right))
@@ -431,13 +472,12 @@
  '(transient-mark-mode t)
  '(vc-follow-symlinks nil))
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(default ((t (:foreground "grey" :background "black"))))
  '(font-lock-builtin-face ((t (:foreground "cyan"))))
- '(font-lock-constant-face ((t (:foreground "blue"))))
  '(makefile-space-face ((((class color)) (:underline nil :background "red"))))
  '(message-header-subject-face ((((class color) (background light)) (:bold t :italic nil :foreground "red" :background "blue"))) t)
  '(message-header-to-face ((((class color) (background light)) (:bold t :foreground "red" :background "blue"))) t)

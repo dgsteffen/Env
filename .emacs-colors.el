@@ -34,6 +34,12 @@
 (set-face-background 'font-lock-keyword-face "black")
 (setq font-lock-keyword-face 'font-lock-keyword-face)
 
+;; constants (?)
+(copy-face 'bold 'font-lock-constant-face)
+(set-face-foreground 'font-lock-constant-face "cyan")
+(setq font-lock-constant-face 'font-lock-constant-face)
+
+
 ;; function names
 (copy-face 'bold 'font-lock-function-name-face)
 (set-face-foreground 'font-lock-function-name-face "cyan")
