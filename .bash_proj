@@ -2,21 +2,20 @@
 #  bash_alias "temporary" stuff, to change per project and at a whim.
 #
 
-export OCEANA='/home/dsteffen/code/oceana'
-
-
-alias cdmfd='cd ~/code/oceana/MFDfilter'
-alias cdoc='cd $OCEANA'
-
-alias mkmfd='cd ~/code/oceana/build; make ThreadedMFDfilter -j8'
-alias mkoc='cd ~/code/oceana/build; make -j8'
-
-alias demogui='cd $OCEANA/MFDfilter/demogui'
-
 alias c='cd ..'
 
-alias mount_shared="sudo mount -v -t cifs '//192.168.1.74/DATA SHARE' /mnt/data_share -o username=dsteffen,domain=NT_DOMAIN,sec=ntlmssp,uid=1000,gid=46,iocharset=utf8,rw,noauto"
+alias cdoc='cd ~/code/oceana'
+alias cdocc='cd ~/code/oceana/oceana'
 
-alias sshbldr='ssh -Y dsteffen@192.168.3.205'
+export Linux3="192.168.3.18"
 
-DOCKER_REGISTRY_URL="localhost:5000/"
+#alias mount_linux3_shared="sudo mount -v -t cifs '//${Linux3}/DATA SHARE' /mnt/data_share -o username=dsteffen,domain=NT_DOMAIN,sec=ntlmssp,uid=1000,gid=46,iocharset=utf8,rw,noauto"
+
+export MyBldr="192.168.3.205"
+
+alias sshbldr='ssh -Y dsteffen@${MyBldr}'
+
+#DOCKER_REGISTRY_URL="localhost:5000/"
+
+alias ast='astyle --style=allman -s4 -xn -xc -xl -xk -C -S -xW -w -Y -m0 -M80 -f -p -k1 -W1 -y -j -c -o'
+

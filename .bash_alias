@@ -15,7 +15,8 @@ alias print='enscript -rG2 '
 
 alias dvips='dvips -t letter'
 
-function e() { ~/bin/emacs-wrap.py $@ 2>&1 | grep -v Gtk-WARNING & }
+function e() { ~/bin/emacs-client-wrap.py $@ 2>&1 | grep -v Gtk-WARNING & }
+function em() { ~/bin/emacs-wrap.py $@ 2>&1 | grep -v Gtk-WARNING & }
 
 function kdvi () { okular $1 > /dev/null 2>&1 ; }
 
@@ -47,10 +48,10 @@ alias kgdiff='git df'
 alias g='gitk --all &'
 alias gst='git status'
 
-function gup() { git rebase origin/$1 $1 ; }
+function gup() { git checkout $1; git pull --rebase origin $1; }
 function remast() { for x in $@; do echo $x; echo; git rebase -f  master $x ; done ; }
 function tomast () { for x in $@; do echo $x; echo ;git branch -f $x master; done ; }
-function upmast () { git fetch; git rebase -f master remotes/origin/master ; }
+function upmast () { git fetch; git rebase -f remotes/origin/master master ; }
 function rebi() { git rebase -i HEAD~$1 ; }
 function rebn() { git rebase -i HEAD~$1 ; }
 function rebb() { git rebase -i $1 ; }
@@ -72,8 +73,7 @@ alias newright='for x in *.out; do mv -f $x $x.right; done;'
 
 ### Valgrindy
 
-alias vg='valgrind --tool=memcheck --leak-check=yes --suppressions=$HOME/.valg-supress '
-export VGLV="valgrind --tool=memcheck --leak-check=yes --suppressions=$HOME/.valg-supress  --logfile=log.valg"
+alias vg='valgrind --tool=memcheck --leak-check=full --suppressions=$HOME/.valg-suppress '
 
 alias vglog='vg --log-file=log.valg '
 #--show-reachable=yes
@@ -89,8 +89,9 @@ alias cg='valgrind --tool=callgrind --dump-instr=yes --dump-line=yes'
 function kcg () { kcachegrind $1 > /dev/null 2>&1 &  }
 function massvis () { massif-visualizer $1 > /dev/null 2>&1 & }
 
-alias codecheckj='cppcheck --force --template gcc -q --enable=all -j6 . 2>&1  | grep -v "not found"'
-alias codecheck='cppcheck --force --template gcc -q --enable=all . 2>&1  | grep -v "not found"'
+# alias codecheckj='cppcheck --force --template gcc -q --enable=all -j6 . 2>&1  | grep -v "not found"'
+# alias codecheck='cppcheck --force --template gcc -q --enable=all . 2>&1  | grep -v "not found"'
+
 
 ## Unit Testy
 

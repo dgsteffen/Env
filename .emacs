@@ -65,7 +65,7 @@
    t))
 
 (require 'protobuf-mode)
-
+(require 'yaml-mode)
 ;; Don't split the frame when starting with multiple files
 (add-hook 'emacs-startup-hook
           (lambda () (delete-other-windows)) t)
@@ -138,6 +138,7 @@
                 ("\\.proto" . protobuf-mode)
                 ("makefile" . makefile-mode)
                 ("CMakeLists.txt" . cmake-mode)
+                ("\\.yml" . yaml-mode)
                 )
               auto-mode-alist)
       )
@@ -463,6 +464,7 @@
  '(default-input-method "latin-1-prefix")
  '(frame-background-mode (quote dark))
  '(global-font-lock-mode t nil (font-lock))
+ '(org-agenda-files (quote ("~/dave_notes")))
  '(package-selected-packages (quote (dockerfile-mode modern-cpp-font-lock)))
  '(save-place nil nil (saveplace))
  '(save-place-version-control (quote never))
