@@ -1,36 +1,28 @@
 [user]
 	name = Dave Steffen
-	email = dsteffen@scitec.com
+	email = dsteffen@scitec.com 
 [status]
 	color = auto
 [color]
 	diff = auto
 	status = auto
 	branch = auto
+
 [diff]
-	tool = meld
+	tool = kdiff3
+[difftool "kdiff3"]
+	trustExitCode = false
+
 [difftool]
 	prompt = false
-[difftool "meld"]
-	cmd = meld "$LOCAL" "$REMOTE"
-
-# [diff]
-# 	tool = kdiff3
-# [difftool "kdiff3"]
-# 	trustExitCode = false
 
 [merge]
 	summary = true
 	tool = kdiff3
+[mergetool]
+        prompt = false
 [mergetool "kdiff3"]
 	trustExitCode = false
-
-# [merge]
-#     tool = meld
-# [mergetool "meld"]
-#     # Choose one of these 2 lines (not both!) explained below.
-# #    cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
-#     cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"
 
 [alias]
      df   = difftool
@@ -48,3 +40,4 @@
      sb   = show-branch --color --more=99 --sha1-name
 [core]
 	excludesfile = /home/dgsteffen/.gitignore
+
