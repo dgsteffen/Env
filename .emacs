@@ -70,6 +70,12 @@
 (add-hook 'emacs-startup-hook
           (lambda () (delete-other-windows)) t)
 
+(add-hook 'server-switch-hook
+            (lambda ()
+              (when (current-local-map)
+                (use-local-map (copy-keymap (current-local-map))))
+	      (when server-buffer-clients
+		(local-set-key (kbd "C-x k") 'server-edit))))
 
 
 (if window-system
@@ -137,7 +143,8 @@
                 ("\\.pl$" . cperl-mode)
                 ("\\.proto" . protobuf-mode)
                 ("makefile" . makefile-mode)
-                ("CMakeLists.txt" . cmake-mode)
+                ("CMakeLists\\.txt" . cmake-mode)
+                ("\\.cmake" . cmake-mode)
                 ("\\.yml" . yaml-mode)
                 )
               auto-mode-alist)
@@ -178,6 +185,8 @@
 (defun my-c-mode-common-hook ()
   (c-add-style "Dave" my-c-style t)
   (c-set-style "Dave")
+  (c-set-offset 'substatement-open 0)
+  (c-set-offset 'inline-open 0)
   (setq c-basic-offset 4)
   (setq font-lock-use-fonts t)
   (setq font-lock-use-colors nil)
@@ -371,12 +380,6 @@
    [?\M-x ?r ?e ?p ?l ?a ?c ?e ?- ?s ?t ?r ?i ?n ?g return ?\C-q ?\C-m return return ?\C-x])
 
 
-(fset 'type_include_sys
- "#include <")
-
-(fset 'type_include_norm
- "#include \"")
-
 (fset 'itemz
    [?\\ ?b ?e ?g ?i ?n ?\{ ?i ?t ?e ?m ?i ?z ?e ?\} ?\[ ?< ?+ ?- ?> ?\] return ?\\ ?e ?n ?d ?\{ ?i ?t ?e ?m ?i ?z ?e ?\} ?\C-a return up])
 
@@ -390,12 +393,10 @@
    [?} ?\M-b ?\\ ?b ?e ?g ?i ?n ?{ ?\C-a ?\C-k ?\C-k ?\C-y ?\C-y up ?\M-f ?\M-b delete delete delete delete delete ?e ?n ?d ?\C-a return up])
 
 
-(global-set-key [(ctrl z)] 'fill-paragraph )
 (global-set-key [?\s- ] 'underscore-dammit-str)
 (global-set-key [(meta g)] 'goto-line)
 (global-set-key [(meta c)] 'delete-indentation       )
 (global-set-key "\C-z" 'undo)
-;(global-set-key (kbd "C-c v") 'comment-dwim)
 
 (global-set-key [down-mouse-8] 'mouse-buffer-menu)
 
@@ -403,15 +404,15 @@
 (global-set-key (kbd "C-c C-z") 'uncomment-region)
 
 (global-set-key [C-z] 'undo )
-(global-set-key [f1] 'auto-fill-mode		)
-(global-set-key [M-f1] 'delete-indentation      )
 
 (global-set-key [(ctrl \;)] 'dabbrev-expand )
 
 
 
-(global-set-key [S-f1] 'type_include_norm )
-(global-set-key [C-f1] 'type_include_sys )
+(global-set-key [f1] 'auto-fill-mode		)
+(global-set-key [M-f1] 'delete-indentation      )
+(global-set-key [(shift f1)] 'org-mode          )
+
 
 (global-set-key [f2] 'whitespace-cleanup        )
 (global-set-key [C-f2] 'nixdos        )

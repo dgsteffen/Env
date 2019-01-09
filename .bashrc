@@ -90,17 +90,19 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/local/dev/lib64
 
 ###  Set up git email depending on hostname
 
-case "$HOSTNAME" in
-    rhel7-bldr-dsteffen-dev.linux3.bldr.scitec1.local | dsteffen-rhel7.bldr.scitec1.local )
-	git config --global user.email dsteffen@scitec.com 
-        source ~/.bash_proj
-        eval $(thefuck --alias 2>/dev/null) 
-        source scl_source enable devtoolset-7 llvm-toolset-7
-        ;;
+eval $(thefuck --alias 2>/dev/null) 
+source ~/.bash_proj
+source scl_source enable devtoolset-7 llvm-toolset-7
 
-    * )
-	git config --global user.email tkd-physics@comcast.net ;;
-esac
+
+# case "$HOSTNAME" in
+#     rhel7-bldr-dsteffen-dev.linux3.bldr.scitec1.local | dsteffen-rhel7.bldr.scitec1.local )
+# 	git config --global user.email dsteffen@scitec.com 
+#         ;;
+
+#     * )
+# 	git config --global user.email tkd-physics@comcast.net ;;
+# esac
 
 
 

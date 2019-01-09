@@ -58,6 +58,9 @@ function rebb() { git rebase -i $1 ; }
 
 #### CODING
 
+function cmk() { cmake -DCMAKE_BUILD_TYPE=$1 .. ; }
+
+
 function gcode () { find ./ -name "*.[ch]*" | xargs grep -H "$1"  2>&1 | grep -v "No such file or directory" ; }
 function ghead () { find ./ -name "*.h*" | xargs grep -H "$1"  ; }
 function gimpl () { find ./ -name "*.c*" | xargs grep -H "$1"  ; }
