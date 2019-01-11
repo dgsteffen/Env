@@ -70,9 +70,9 @@ function glhead () { find ./ -name "*.h*" | xargs grep -lH "$1"  ; }
 function glimpl () { find ./ -name "*.c*" | xargs grep -lH "$1"  ; }
 
 
-alias outright='for x in *.out; do diff -q $x $x.right; done;'
-alias outcanon='for x in *.out; do diff -q $x $x.canon; done;'
-alias newright='for x in *.out; do mv -f $x $x.right; done;'
+alias outright='for x in *.out; do echo $x; diff -q $x $x.right; done;'
+alias outcanon='for x in *.out; do echo $x; diff -q $x $x.canon; done;'
+alias newright='for x in *.out; do echo $x; mv -f $x $x.right; done;'
 
 ### Valgrindy
 

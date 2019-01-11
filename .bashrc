@@ -12,7 +12,7 @@ else
     export DAVE=1 ;
 fi
 
-export PATH=.:$HOME/bin:$HOME/local/bin:/usr/local/bin:$PATH ;
+export PATH=.:$HOME/bin:$HOME/local/bin:/usr/local/bin:/usr/bin:$PATH ;
 
 
 export EDITOR=emacs
@@ -92,17 +92,22 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/local/dev/lib64
 
 eval $(thefuck --alias 2>/dev/null) 
 source ~/.bash_proj
-source scl_source enable devtoolset-7 llvm-toolset-7
 
 
-# case "$HOSTNAME" in
-#     rhel7-bldr-dsteffen-dev.linux3.bldr.scitec1.local | dsteffen-rhel7.bldr.scitec1.local )
-# 	git config --global user.email dsteffen@scitec.com 
-#         ;;
+case "$HOSTNAME" in
 
-#     * )
-# 	git config --global user.email tkd-physics@comcast.net ;;
-# esac
+    dsteffen.centos7 )
+        git config --global user.email dsteffen@scitec.com )
+        source scl_source enable devtoolset-7 llvm-toolset-7
+        ;;
+
+    rhel7-bldr-dsteffen-dev.linux3.bldr.scitec1.local )
+	git config --global user.email dsteffen@scitec.com 
+        ;;
+
+    * )
+	git config --global user.email tkd-physics@comcast.net ;;
+esac
 
 
 

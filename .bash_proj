@@ -17,5 +17,4 @@ alias sshbldr='ssh -Y dsteffen@${MyBldr}'
 
 #DOCKER_REGISTRY_URL="localhost:5000/"
 
-alias ast='astyle --style=allman -s4 -xn -xc -xl -xk -C -S -xW -w -Y -m0 -M80 -f -p -k1 -W1 -y -j -c -o'
-
+alias outres="grep \"Heres track\""
