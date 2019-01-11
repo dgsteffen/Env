@@ -97,7 +97,7 @@ source ~/.bash_proj
 case "$HOSTNAME" in
 
     dsteffen.centos7 )
-        git config --global user.email dsteffen@scitec.com )
+        git config --global user.email dsteffen@scitec.com 
         source scl_source enable devtoolset-7 llvm-toolset-7
         ;;
 
