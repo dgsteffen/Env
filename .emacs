@@ -10,6 +10,7 @@
 (setq inhibit-splash-screen t) ; turn off the damned spash screen
 
 (fset 'yes-or-no-p 'y-or-n-p) ; stop forcing me to spell out "yes"
+(setq vc-follow-symlinks t)
 
 (define-key function-key-map [backspace] "\177")
 (define-key function-key-map [delete] "\C-d")
@@ -23,6 +24,23 @@
 
 (setq-default save-place nil)
 (setq save-place nil)
+
+;; Experimental
+(global-auto-revert-mode t)
+
+
+(setq exec-path (append exec-path '("/opt/clang8/bin")))
+
+;; turn off bell completely
+(setq ring-bell-function
+      (lambda ()
+        (let ((orig-fg (face-foreground 'mode-line)))
+          (set-face-foreground 'mode-line "#F2804F")
+          (run-with-idle-timer 0.1 nil
+                               (lambda (fg) (set-face-foreground 'mode-line fg))
+                               orig-fg))))
+
+;(setq ring-bell-function 'ignore)
 
 ;; Highlights current line
 ;;(global-hl-line-mode +1)
@@ -56,16 +74,33 @@
 
 
 ;; load emacs 24's package system. Add MELPA repository.
-(when (>= emacs-major-version 24)
   (require 'package)
   (add-to-list
    'package-archives
-   ;; '("melpa" . "http://stable.melpa.org/packages/") ; many packages won't show if using stable
-   '("melpa" . "http://melpa.milkbox.net/packages/")
-   t))
+   '("melpa" . "http://melpa.milkbox.net/packages/") t))
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(package-initialize)
+
+(defvar myPackages
+  '(elpy
+    )
+  )
+
+;; Scans the list in myPackages
+;; If the package listed is not already installed, install it
+(mapc #'(lambda (package)
+          (unless (package-installed-p package)
+            (package-install package)))
+      myPackages)
+
 
 (require 'protobuf-mode)
 (require 'yaml-mode)
+(require 'clang-format)
+(require 'groovy-mode)
+
+
+;(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 ;; Don't split the frame when starting with multiple files
 (add-hook 'emacs-startup-hook
           (lambda () (delete-other-windows)) t)
@@ -105,9 +140,10 @@
 ;;(add-to-list 'default-frame-alist '(background-color . "#000000"))
 
 ;; adjust this path:
-(add-to-list 'load-path "/home/dgsteffen/local/share/emacs/26.1/site-lisp")
+(add-to-list 'load-path "~/Env")
 (add-to-list 'load-path "/usr/share/cmake/editors/emacs")
 (add-to-list 'load-path "/usr/share/emacs/site-lisp/")
+
 ;(autoload 'compilation-always-kill-mode "compilation-always-kill" nil t)
 ;(compilation-always-kill-mode 1)
 
@@ -140,6 +176,7 @@
                 ("\\.c$"  . c++-mode)
                 ("\\.t$"  . c++-mode)
                 ("\\.h$"  . c++-mode)
+                ("\\.cu$" . c++-mode)
                 ("\\.pl$" . cperl-mode)
                 ("\\.proto" . protobuf-mode)
                 ("makefile" . makefile-mode)
@@ -174,11 +211,14 @@
 				  (brace-elseif-brace)
 				  (defun-close-semi)
 				  (scope-operator)))
+    (c-offsets-alist . ((innamespace . [0])))
 
     )
   "My C++ Programming Style")
 
 (setq indent-tabs-mode nil)
+
+
 
 
 
@@ -419,9 +459,11 @@
 
 (global-set-key [f3] 'indent-region             )
 (global-set-key [C-f3] 'dave-cleanup            )
+(global-set-key [M-f3] 'clang-format-buffer     )
 
 (global-set-key [f4] 'delete-other-windows      )
-(global-set-key [M-f4] 'ctypes-define-type      )
+(global-set-key [C-f4] 'ctypes-define-type      )
+(global-set-key [M-f4] 'clang-format-region     )
 
 (global-set-key [f5] 'replace-string		)
 (global-set-key [M-f5] 'query-replace		)
@@ -493,3 +535,4 @@
 ;; language
 
 (set-language-environment '"UTF-8")
+(put 'upcase-region 'disabled nil)
