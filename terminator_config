@@ -1,4 +1,6 @@
 [global_config]
+  suppress_multiple_term_dialog = True
+  title_transmit_bg_color = "#352d44"
 [keybindings]
 [layouts]
   [[default]]
@@ -8,14 +10,15 @@
       type = Terminal
     [[[window0]]]
       parent = ""
-      type = Window
       size = 1300, 1000
+      type = Window
 [plugins]
 [profiles]
   [[default]]
-    background_darkness = 0.81
+    background_darkness = 0.88
     background_image = None
     background_type = transparent
     font = Liberation Mono 12
+    scroll_on_output = False
     use_system_font = False
     word_chars = "-A-Za-z0-9,./?%&#:_~"
