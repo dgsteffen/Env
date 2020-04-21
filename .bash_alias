@@ -19,6 +19,7 @@ function e() { ~/bin/emacs-client-wrap.py $@ 2>&1 | grep -v Gtk-WARNING & }
 function em() { ~/bin/emacs-wrap.py $@ 2>&1 | grep -v Gtk-WARNING & }
 
 function kdvi () { okular $1 > /dev/null 2>&1 ; }
+alias kpdf='okular'
 
 function calc() { localc $1 & }
 
@@ -38,7 +39,8 @@ alias kmergr='kfiler "*.BACKUP*"; kfiler "*.BASE*"; kfiler "*.REMOTE*"; kfiler "
 
 alias tidyup='ktr ; kcorer ; klogr ;'
 
-alias kpdf='okular'
+
+alias cmake='cmake3'
 
 
 ### GIT
@@ -48,26 +50,39 @@ alias kgdiff='git df'
 alias g='gitk --all &'
 alias gst='git status'
 
-function gup() { git checkout $1; git pull --rebase origin $1; }
-function remast() { for x in $@; do echo $x; echo; git rebase -f  master $x ; done ; }
+function gup() { git checkout $1; git fetch origin && git rebase -p origin/$1 $1; }
+
+function remast() { for x in $@; do echo $x; echo; git rebase --fork-point  master $x ; done ; }
 function tomast () { for x in $@; do echo $x; echo ;git branch -f $x master; done ; }
 function upmast () { git fetch; git rebase -f remotes/origin/master master ; }
+function redev() { for x in $@; do echo $x; echo; git rebase --fork-point  dev $x ; done ; }
+function todev () { for x in $@; do echo $x; echo; git branch -f $x dev; done ; }
+function updev () { git fetch; git rebase --fork-point remotes/origin/dev dev ; }
 function rebi() { git rebase -i HEAD~$1 ; }
 function rebn() { git rebase -i HEAD~$1 ; }
 function rebb() { git rebase -i $1 ; }
 
+function lbrn() { git checkout -b $1 --track $2 ; }
+
+# format : comast "2019-04-19 17:00:00" or thereabouts
+function comast() { git checkout `git rev-list -n 1 --before="${1}" master` ; }
+
+
 #### CODING
 
 function cmk() { cmake -DCMAKE_BUILD_TYPE=$1 .. ; }
+function cmkt() { cmake -D BUILD_TYPE=$1 .. ; }
 
+function cbuild { cmake -D BUILD_TYPE=$1 .. ; }
 
-function gcode () { find ./ -name "*.[ch]*" | xargs grep -H "$1"  2>&1 | grep -v "No such file or directory" ; }
+function gcode () { find ./ -name "*.[chC]*" | xargs grep -H "$1"  2>&1 | grep -v "No such file or directory" ; }
 function ghead () { find ./ -name "*.h*" | xargs grep -H "$1"  ; }
-function gimpl () { find ./ -name "*.c*" | xargs grep -H "$1"  ; }
+function gimpl () { find ./ -name "*.[cC]*" | xargs grep -H "$1"  ; }
+function gcmk  () { find ./ -name "CMakeLists.txt" | xargs grep -H "$1"  ; }
 
-function glcode () { find ./ -name "*.[ch]*" | xargs grep -lH "$1"  ; }
+function glcode () { find ./ -name "*.[chC]*" | xargs grep -lH "$1"  ; }
 function glhead () { find ./ -name "*.h*" | xargs grep -lH "$1"  ; }
-function glimpl () { find ./ -name "*.c*" | xargs grep -lH "$1"  ; }
+function glimpl () { find ./ -name "*.[cC]*" | xargs grep -lH "$1"  ; }
 
 
 alias outright='for x in *.out; do echo $x; diff -q $x $x.right; done;'
@@ -76,7 +91,7 @@ alias newright='for x in *.out; do echo $x; mv -f $x $x.right; done;'
 
 ### Valgrindy
 
-alias vg='valgrind --tool=memcheck --leak-check=full --suppressions=$HOME/.valg-suppress '
+alias vg='valgrind --tool=memcheck --leak-check=full --track-origins=yes --show-leak-kinds=all --sim-hints=no-nptl-pthread-stackcache --suppressions=$HOME/.valg-suppress '
 
 alias vglog='vg --log-file=log.valg '
 #--show-reachable=yes
@@ -96,11 +111,9 @@ function massvis () { massif-visualizer $1 > /dev/null 2>&1 & }
 # alias codecheck='cppcheck --force --template gcc -q --enable=all . 2>&1  | grep -v "not found"'
 
 
-## Unit Testy
-
-alias utrp='utparse --nostats --nosort'
-
 alias sed_ex="sed -i 's/foo/foo_bar/g' somefile.module "
 
 
 
+alias powerfast='sudo cpupower frequency-set --governor performance'
+alias powersave='sudo cpupower frequency-set --governor powersave'
