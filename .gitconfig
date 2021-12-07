@@ -1,6 +1,6 @@
 [user]
 	name = Dave Steffen
-	email = dsteffen@scitec.com 
+	email = dsteffen@scitec.com
 [status]
 	color = auto
 [color]
@@ -29,6 +29,9 @@
      get  = fetch origin --prune
      cleanup = clean -fdx
      rebc = rebase --continue
+     sup  = submodule update
+     supr = submodule update --recursive
+     cam  = commit --amend
 #    st   = status
 #    stat = status
      ci   = commit
@@ -41,3 +44,8 @@
 [core]
 	excludesfile = /home/dgsteffen/.gitignore
 
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
