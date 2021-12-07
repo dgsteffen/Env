@@ -1,4 +1,11 @@
-; General stuff
+
+
+(package-initialize)
+
+
+;; adjust this path:
+(add-to-list 'load-path "/home/dsteffen/Env")
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/")
 
 (setq default-major-mode 'text-mode)	; new buffers are text mode by default
 (setq case-fold-search t)		; make searches case sensitive
@@ -15,7 +22,6 @@
 (define-key function-key-map [backspace] "\177")
 (define-key function-key-map [delete] "\C-d")
 
-
 (global-font-lock-mode t)
 (setq font-lock-maximum-decoration t)
 (setq-default auto-fill-hook 'do-auto-fill)
@@ -29,8 +35,6 @@
 (global-auto-revert-mode t)
 
 
-(setq exec-path (append exec-path '("/opt/clang8/bin")))
-
 ;; turn off bell completely
 (setq ring-bell-function
       (lambda ()
@@ -40,11 +44,6 @@
                                (lambda (fg) (set-face-foreground 'mode-line fg))
                                orig-fg))))
 
-;(setq ring-bell-function 'ignore)
-
-;; Highlights current line
-;;(global-hl-line-mode +1)
-;;(set-face-background hl-line-face "#333964")
 ;; Delete on insertion mode
 (delete-selection-mode +1)
 
@@ -54,7 +53,6 @@
 (tool-bar-mode 0)
 
 ;; kill the auto save
-
 (setq auto-save-default nil)
 
 ;; Hmm -- mouse buffer menu (ctrl-left click)
@@ -72,33 +70,37 @@
 (pending-delete-mode t)
  (setq transient-mark-mode t)
 
+;; Set up proper ANSI colors in compilation windows.
+;; (require 'ansi-color)
+;; (defun colorize-compilation-buffer ()
+;;   (toggle-read-only)
+;;   (ansi-color-apply-on-region compilation-filter-start (point))
+;;   (toggle-read-only))
+;; (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+(ignore-errors
+  (require 'ansi-color)
+  (defun my-colorize-compilation-buffer ()
+    (when (eq major-mode 'compilation-mode)
+      (ansi-color-apply-on-region compilation-filter-start (point-max))))
+  (add-hook 'compilation-filter-hook 'my-colorize-compilation-buffer))
 
-;; load emacs 24's package system. Add MELPA repository.
-  (require 'package)
-  (add-to-list
-   'package-archives
-   '("melpa" . "http://melpa.milkbox.net/packages/") t))
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+
+(require 'package)
+;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "http://www.mirrorservice.org/sites/melpa.org/packages/") t)
+;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
+;; and `package-pinned-packages`. Most users will not need or want to do this.
+;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
 
-(defvar myPackages
-  '(elpy
-    )
-  )
 
-;; Scans the list in myPackages
-;; If the package listed is not already installed, install it
-(mapc #'(lambda (package)
-          (unless (package-installed-p package)
-            (package-install package)))
-      myPackages)
-
-
-(require 'protobuf-mode)
-(require 'yaml-mode)
+;(require 'protobuf-mode)
+;(require 'yaml-mode)
 (require 'clang-format)
-(require 'groovy-mode)
+;(require 'groovy-mode)
 
+;(define-key groovy-mode-map (kbd "C-c C-c") 'comment-region)
+;(define-key groovy-mode-map (kbd "C-c C-x") 'uncomment-region)
 
 ;(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 ;; Don't split the frame when starting with multiple files
@@ -139,10 +141,6 @@
 ;;(add-to-list 'default-frame-alist '(foreground-color . "green"))
 ;;(add-to-list 'default-frame-alist '(background-color . "#000000"))
 
-;; adjust this path:
-(add-to-list 'load-path "~/Env")
-(add-to-list 'load-path "/usr/share/cmake/editors/emacs")
-(add-to-list 'load-path "/usr/share/emacs/site-lisp/")
 
 ;(autoload 'compilation-always-kill-mode "compilation-always-kill" nil t)
 ;(compilation-always-kill-mode 1)
@@ -192,6 +190,8 @@
 (which-function-mode 1)
 
 (setq make-backup-files nil)
+
+(setq python-fill-docstring-style 'DJANGO)
 
 
 (defconst my-c-style
@@ -249,6 +249,13 @@
 
 (add-hook 'protobuf-mode-hook
           (lambda () (c-add-style "my-style" my-protobuf-style t)))
+
+
+
+
+(setq python-fill-docstring-style 'DJANGO)
+
+
 
 
 ;;compiling
@@ -372,7 +379,7 @@
 
 (defun my-python-mode-hook ()
 ;  (setq python-indent 2)
-  (setq fill-column 100 )
+  (setq fill-column 80 )
   (setq-default indent-tabs-mode nil)
 )
 
@@ -433,12 +440,15 @@
    [?} ?\M-b ?\\ ?b ?e ?g ?i ?n ?{ ?\C-a ?\C-k ?\C-k ?\C-y ?\C-y up ?\M-f ?\M-b delete delete delete delete delete ?e ?n ?d ?\C-a return up])
 
 
+
+
+
 (global-set-key [?\s- ] 'underscore-dammit-str)
 (global-set-key [(meta g)] 'goto-line)
 (global-set-key [(meta c)] 'delete-indentation       )
 (global-set-key "\C-z" 'undo)
 
-(global-set-key [down-mouse-8] 'mouse-buffer-menu)
+(global-set-key [C-mouse-8] 'mouse-buffer-menu)
 
 (global-set-key (kbd "C-c C-x") 'comment-region)
 (global-set-key (kbd "C-c C-z") 'uncomment-region)
@@ -447,6 +457,8 @@
 
 (global-set-key [(ctrl \;)] 'dabbrev-expand )
 
+;(bind-key "C-+" 'text-scale-increase)
+;(bind-key "C-_" 'text-scale-decrease)
 
 
 (global-set-key [f1] 'auto-fill-mode		)
@@ -493,46 +505,3 @@
 
 
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(auto-compression-mode t nil (jka-compr))
- '(canlock-password "945e30dda39dadb8c2000ad016d020610315a68e")
- '(case-fold-search t)
- '(cperl-electric-parens-string "\"\"")
- '(cperl-extra-newline-before-brace t)
- '(current-language-environment "Latin-1")
- '(default-input-method "latin-1-prefix")
- '(frame-background-mode (quote dark))
- '(global-font-lock-mode t nil (font-lock))
- '(org-agenda-files (quote ("~/dave_notes")))
- '(package-selected-packages (quote (dockerfile-mode modern-cpp-font-lock)))
- '(save-place nil nil (saveplace))
- '(save-place-version-control (quote never))
- '(scroll-bar-mode (quote right))
- '(show-paren-mode t nil (paren))
- '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
- '(transient-mark-mode t)
- '(vc-follow-symlinks nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:foreground "grey" :background "black"))))
- '(font-lock-builtin-face ((t (:foreground "cyan"))))
- '(makefile-space-face ((((class color)) (:underline nil :background "red"))))
- '(message-header-subject-face ((((class color) (background light)) (:bold t :italic nil :foreground "red" :background "blue"))) t)
- '(message-header-to-face ((((class color) (background light)) (:bold t :foreground "red" :background "blue"))) t)
- '(message-separator-face ((((class color) (background light)) (:foreground "yellow" :background "blue"))) t))
-
-
-(setq-default save-place nil)
-(setq save-place nil)
-
-;; language
-
-(set-language-environment '"UTF-8")
-(put 'upcase-region 'disabled nil)
