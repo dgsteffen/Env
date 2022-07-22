@@ -6,18 +6,18 @@
 ! emacs, xemacs
 
 ! Generics
-emacs.foreground:                       yellow
-emacs.background:                       black
-emacs.region.attributeForeground:       yellow
-emacs.region.attributeBackground:       DarkOrchid4
-emacs.pointerColor:                     Red
-emacs.cursorColor:                      green
+!emacs.foreground:                       yellow
+!emacs.background:                       black
+!emacs.region.attributeForeground:       yellow
+!emacs.region.attributeBackground:       DarkOrchid4
+!emacs.pointerColor:                     Red
+!emacs.cursorColor:                      green
 
 !emacs*font: fixed
 !emacs*font: -unknown-DejaVu Sans Mono-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1
 !emacs.font: -adobe-courier-medium-r-normal-*-14-*-*-*-*-*-*-*
 !emacs.font: -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
-emacs.font: -misc-fixed-*-*-*-*-*-140-*-*-*-*-*-*
+!emacs.font: -misc-fixed-*-*-*-*-*-140-*-*-*-*-*-*
 
 
 !emacs*scrollbar.attributeForeground: yellow

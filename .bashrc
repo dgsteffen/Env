@@ -12,7 +12,7 @@ else
     export DAVE=1 ;
 fi
 
-export PATH=.:$HOME/bin:$HOME/local/bin:/usr/local/bin:/usr/bin:$PATH ;
+export PATH=.:$HOME/bin:/usr/local/bin:/usr/bin:/usr/share/clang:$PATH ;
 
 
 export EDITOR=emacs
@@ -91,23 +91,28 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/local/dev/lib64
 ###  Set up git email depending on hostname
 
 eval $(thefuck --alias 2>/dev/null) 
-source ~/.bash_proj
+source ~/.bash_here
+
+git config --global user.email dsteffen@scitec.com
+
+source /opt/rh/gcc-toolset-11/enable
 
 
-case "$HOSTNAME" in
+# case "$HOSTNAME" in
 
-    dsteffen.centos7 )
-        git config --global user.email dsteffen@scitec.com 
-        source scl_source enable devtoolset-7 llvm-toolset-7
-        ;;
+#     dsteffen.centos7 )
+#         git config --global user.email dsteffen@scitec.com 
+#         #source scl_source enable devtoolset-9
+#         source /opt/rh/devtoolset-9/enable
+#         ;;
 
-    rhel7-bldr-dsteffen-dev.linux3.bldr.scitec1.local )
-	git config --global user.email dsteffen@scitec.com 
-        ;;
+#     rhel7-bldr-dsteffen-dev.linux3.bldr.scitec1.local )
+# 	git config --global user.email dsteffen@scitec.com 
+#         ;;
 
-    * )
-	git config --global user.email tkd-physics@comcast.net ;;
-esac
+#     * )
+# 	git config --global user.email tkd-physics@comcast.net ;;
+# esac
 
 
 

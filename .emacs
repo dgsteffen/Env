@@ -448,7 +448,7 @@
 (global-set-key [(meta c)] 'delete-indentation       )
 (global-set-key "\C-z" 'undo)
 
-(global-set-key [C-mouse-8] 'mouse-buffer-menu)
+(global-set-key [mouse-8] 'mouse-buffer-menu)
 
 (global-set-key (kbd "C-c C-x") 'comment-region)
 (global-set-key (kbd "C-c C-z") 'uncomment-region)

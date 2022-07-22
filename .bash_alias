@@ -5,6 +5,8 @@ alias h='history'
 alias cp='cp -i'
 alias mv='mv -i'
 
+alias c='cd ..'
+
 
 alias ls='ls -F --color=auto --group-directories-first'
 alias cls='clear;ls'
@@ -15,15 +17,18 @@ alias print='enscript -rG2 '
 
 alias dvips='dvips -t letter'
 
-function e() { ~/bin/emacs-client-wrap.py $@ 2>&1 | grep -v Gtk-WARNING & }
-function em() { ~/bin/emacs-wrap.py $@ 2>&1 | grep -v Gtk-WARNING & }
+#function e() { ~/bin/emacs-client-wrap.py $@ 2>&1 | grep -v Gtk-WARNING & }
+function e() { /home/dsteffen/bin/emacs-wrap.py $@ 2>&1 | grep -v Gtk-WARNING & }
+
+
+alias pip='pip3'
+alias pip2='/usr/bin/pip'
 
 function kdvi () { okular $1 > /dev/null 2>&1 ; }
 alias kpdf='okular'
 
 function calc() { localc $1 & }
 
-alias citroster='localc ~/TKD/CIT_Roster/cit_roster.ods'
 
 ### File Filtering
 
@@ -64,16 +69,33 @@ function rebb() { git rebase -i $1 ; }
 
 function lbrn() { git checkout -b $1 --track $2 ; }
 
+function newb() { git checkout -b $1; git push -u origin $1 ; }
+
+function allbranch() { git branch -r | grep -v '\->' | grep -v 'master' | while read remote; do git branch --track "${remote#origin/}" "$remote"; done ; }
+
 # format : comast "2019-04-19 17:00:00" or thereabouts
 function comast() { git checkout `git rev-list -n 1 --before="${1}" master` ; }
 
+
+#function rmsub() { git submodule deinit <path_to_submodule>
+#git rm <path_to_submodule>
+#git commit-m "Removed submodule "
+#rm -rf .git/modules/<path_to_submodule>
+#}
+
+
+
+### Building
+
+alias mj='make -j8'
+alias mkj='make -kj8'
+alias mkja='make -kj'
 
 #### CODING
 
 function cmk() { cmake -DCMAKE_BUILD_TYPE=$1 .. ; }
 function cmkt() { cmake -D BUILD_TYPE=$1 .. ; }
 
-function cbuild { cmake -D BUILD_TYPE=$1 .. ; }
 
 function gcode () { find ./ -name "*.[chC]*" | xargs grep -H "$1"  2>&1 | grep -v "No such file or directory" ; }
 function ghead () { find ./ -name "*.h*" | xargs grep -H "$1"  ; }
@@ -84,10 +106,23 @@ function glcode () { find ./ -name "*.[chC]*" | xargs grep -lH "$1"  ; }
 function glhead () { find ./ -name "*.h*" | xargs grep -lH "$1"  ; }
 function glimpl () { find ./ -name "*.[cC]*" | xargs grep -lH "$1"  ; }
 
+function pcode () { find ./ -name "*.py" | xargs grep -H "$1"  ; }
+
 
 alias outright='for x in *.out; do echo $x; diff -q $x $x.right; done;'
 alias outcanon='for x in *.out; do echo $x; diff -q $x $x.canon; done;'
 alias newright='for x in *.out; do echo $x; mv -f $x $x.right; done;'
+
+alias maketargs='cmake --build . --target help'
+
+
+### Sanitizers
+
+UBSAN_OPTIONS=print_stacktrace=1
+ASAN_OPTIONS=check_initialization_order=1
+ASAN_OPTIONS=halt_on_error=0
+
+
 
 ### Valgrindy
 
@@ -111,9 +146,21 @@ function massvis () { massif-visualizer $1 > /dev/null 2>&1 & }
 # alias codecheck='cppcheck --force --template gcc -q --enable=all . 2>&1  | grep -v "not found"'
 
 
-alias sed_ex="sed -i 's/foo/foo_bar/g' somefile.module "
-
+#alias sed_ex="sed -i 's/foo/foo_bar/g' somefile.module "
+alias prep="sed -i 's/ThreadBase/ProcThread/g'"
 
 
 alias powerfast='sudo cpupower frequency-set --governor performance'
 alias powersave='sudo cpupower frequency-set --governor powersave'
+
+# Virtual desktop to my Win 10 machine
+#xfreerdp /v:BOULDERW10VM-DS.SciTec1.local /u:dsteffen /d:NT_DOMAIN /w:1920 /h:1080
+
+# or...
+alias wdesk='xfreerdp /v:WSW10DS.SciTec1.local /u:dsteffen /d:NT_DOMAIN /w:1920 /h:1080 /dynamic-resolution +fonts'
+
+alias all_single_aliases='compgen -c | grep -x . | sort -u '
+# for char in {A..z}; do type "$char" 2>/dev/null; done
+
+# hamster
+alias ham='flatpak run org.gnome.Hamster > /dev/null 2>&1'

@@ -2,19 +2,32 @@
 #  bash_alias "temporary" stuff, to change per project and at a whim.
 #
 
-alias c='cd ..'
 
-alias cdoc='cd ~/code/oceana'
-alias cdocc='cd ~/code/oceana/oceana'
+export forge_dev=192.168.120.6
 
-export Linux3="192.168.3.18"
+alias fdev='ssh -X ${forge_dev}'
 
-#alias mount_linux3_shared="sudo mount -v -t cifs '//${Linux3}/DATA SHARE' /mnt/data_share -o username=dsteffen,domain=NT_DOMAIN,sec=ntlmssp,uid=1000,gid=46,iocharset=utf8,rw,noauto"
 
-export MyBldr="192.168.3.205"
+export sofa_stat=192.168.10.19
+export sofa_gp=192.168.10.23
+export sofa_dev=192.168.10.22
+export sofa_dd=192.168.10.21
+export sofa_hp=192.168.10.26
+export sofa_mp=192.168.10.25
+export sofa_zk=192.168.10.20
 
-alias sshbldr='ssh -Y dsteffen@${MyBldr}'
+alias cppk='cd ~/sofa/sdk/cpk'
+alias pykit='cd ~/sofa/sdk/sofa-pykit; source bin/activate'
 
-#DOCKER_REGISTRY_URL="localhost:5000/"
+alias monitor='cd ~/sofa/sofa/monitor; source bin/activate'
 
-alias outres="grep \"Heres track\""
+# run-clang-tidy.py -p=./build -header-filter='.*' -checks='-*,modernize-use-override' -fix
+
+
+
+
+#sudo systemctl status network.service
+#sudo systemctl status network
+
+#sudo systemctl restart network.service
+#sudo systemctl restart network
