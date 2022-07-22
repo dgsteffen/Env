@@ -7,6 +7,10 @@
 	diff = auto
 	status = auto
 	branch = auto
+[color "status"]
+        untracked = magenta bold
+        changed = yellow bold
+        #changed = red bold
 
 [diff]
 	tool = kdiff3
