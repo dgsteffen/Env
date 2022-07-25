@@ -12,6 +12,11 @@
         changed = yellow bold
         #changed = red bold
 
+[color "branch"]
+       current = green bold
+       #    local = yellow
+       remote = yellow
+
 [diff]
 	tool = kdiff3
 [difftool "kdiff3"]
