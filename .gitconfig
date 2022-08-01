@@ -1,6 +1,9 @@
 [user]
 	name = Dave Steffen
 	email = dsteffen@scitec.com
+[core]
+	excludesfile = /home/dgsteffen/.gitignore
+        editor = emacs -nw
 [status]
 	color = auto
 [color]
@@ -10,7 +13,6 @@
 [color "status"]
         untracked = magenta bold
         changed = yellow bold
-        #changed = red bold
 
 [color "branch"]
        current = green bold
@@ -41,17 +43,9 @@
      sup  = submodule update
      supr = submodule update --recursive
      cam  = commit --amend
-#    st   = status
-#    stat = status
      ci   = commit
-#    cia  = commit -a
-#    br   = branch
      co   = checkout
-#    lg   = log -p
-#    gk   = log  --graph --abbrev-commit --pretty=oneline --decorate --all
-     sb   = show-branch --color --more=99 --sha1-name
-[core]
-	excludesfile = /home/dgsteffen/.gitignore
+     gk   = log  --graph --abbrev-commit --pretty=oneline --decorate --all
 
 [filter "lfs"]
 	process = git-lfs filter-process
