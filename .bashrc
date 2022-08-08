@@ -35,6 +35,16 @@ COLOR_BLUE="\033[0;34m"
 COLOR_WHITE="\033[0;37m"
 COLOR_RESET="\033[0m"
 
+#### Docker Support
+
+# Define bare conditional
+in_docker() { [[ -f /.dockerenv ]]; }
+
+FIRST_CHAR=''
+if in_docker; then FIRST_CHAR=$'\u2605'; fi
+
+
+
 function git_color {
   local git_status="$(git status 2> /dev/null)"
 
@@ -80,8 +90,8 @@ parse_git_branch() {
 
 #export PS1="\[\033[1;32m\]\$(parse_git_branch) \w \[\033[1;35m\]:\[\033[0m\] "
 
-export PS1="\[\$(git_color)\]\$(parse_git_branch)\[\033[1;32m\]\w \[\033[1;35m\]:\[\033[0m\] "
-export PS2="\[\033[1;35m\]continue :\[\033[0m\] "
+export PS1="${FIRST_CHAR}\[\$(git_color)\]\$(parse_git_branch)\[\033[1;32m\]\w \[\033[1;35m\]:\[\033[0m\] "
+export PS2="${FIRST_CHAR}\[\033[1;35m\]continue :\[\033[0m\] "
 
 xrdb -merge ~/.Xdefaults 
 
