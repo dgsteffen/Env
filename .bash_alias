@@ -29,6 +29,7 @@ alias kpdf='okular'
 
 function calc() { localc $1 & }
 
+alias mic='pavucontrol &'
 
 ### File Filtering
 
