@@ -41,7 +41,7 @@ COLOR_RESET="\033[0m"
 in_docker() { [[ -f /.dockerenv ]]; }
 
 FIRST_CHAR=''
-if in_docker; then FIRST_CHAR=$'\u2605'; fi
+if in_docker; then FIRST_CHAR=$'\u26a1'; fi
 
 
 
@@ -81,6 +81,8 @@ function git_branch {
   fi
 }
 
+BRANCH_L=$'\u27A1'
+BRANCH_R=$'\u2B05'
 
 parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/<\1> /'

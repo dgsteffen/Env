@@ -95,7 +95,7 @@
 
 
 ;(require 'protobuf-mode)
-;(require 'yaml-mode)
+(require 'yaml-mode)
 (require 'clang-format)
 ;(require 'groovy-mode)
 

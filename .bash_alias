@@ -56,7 +56,7 @@ alias kgdiff='git df'
 alias g='gitk --all &'
 alias gst='git status'
 
-function gup() { git checkout $1; git fetch origin && git rebase -p origin/$1 $1; }
+function gup() { git checkout $1; git fetch origin && git rebase --rebase-merges origin/$1 $1; }
 
 function remast() { for x in $@; do echo $x; echo; git rebase --fork-point  master $x ; done ; }
 function tomast () { for x in $@; do echo $x; echo ;git branch -f $x master; done ; }

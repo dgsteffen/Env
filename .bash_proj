@@ -1,33 +1,23 @@
 #
 #  bash_alias "temporary" stuff, to change per project and at a whim.
 #
+### DOCKER
 
+# shortcuts for various images
 
-export forge_dev=192.168.120.6
-
-alias fdev='ssh -X ${forge_dev}'
-
-
-export sofa_stat=192.168.10.19
-export sofa_gp=192.168.10.23
-export sofa_dev=192.168.10.22
-export sofa_dd=192.168.10.21
-export sofa_hp=192.168.10.26
-export sofa_mp=192.168.10.25
-export sofa_zk=192.168.10.20
-
-alias cppk='cd ~/sofa/sdk/cpk'
-alias pykit='cd ~/sofa/sdk/sofa-pykit; source bin/activate'
-
-alias monitor='cd ~/sofa/sofa/monitor; source bin/activate'
-
-# run-clang-tidy.py -p=./build -header-filter='.*' -checks='-*,modernize-use-override' -fix
+export FPL_RUN=artifactory.scitec.com/mdpap/base-images/frame-processing-library/pipeline:latest
+export EVENT_RUN=artifactory.scitec.com/mdpap/base-images/apps/event-type/build
+export RHEL_OLD=artifactory.scitec.com/mdpap/pipeline-rhel-8:74c2c1a59c91d96a6e47dddddf8eca945136c682
+export RHEL=artifactory.scitec.com/mdpap/pipeline-rhel-8:latest
 
 
 
 
-#sudo systemctl status network.service
-#sudo systemctl status network
+function drun { eval 'docker run -v $HOME:$HOME -e HOME=/home/dsteffen --volume="/etc/group:/etc/group:ro" --volume="/etc/passwd:/etc/passwd:ro" --volume="/etc/shadow:/etc/shadow:ro" -it --user 1002:1002 --rm --name dude \${1} bash' ; }
 
-#sudo systemctl restart network.service
-#sudo systemctl restart network
+# gives full terminal, but can't separat out stderr
+alias d='docker exec -w ${PWD} -t dude'
+
+# maybe can sep
+alias ds='docker exec -w ${PWD} -t dude'
+
