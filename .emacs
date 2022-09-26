@@ -138,10 +138,6 @@
 ;; 		(local-set-key (kbd "C-x k") 'server-edit))))
 
 
-;;(add-to-list 'default-frame-alist '(foreground-color . "green"))
-;;(add-to-list 'default-frame-alist '(background-color . "#000000"))
-
-
 ;(autoload 'compilation-always-kill-mode "compilation-always-kill" nil t)
 ;(compilation-always-kill-mode 1)
 
@@ -244,7 +240,7 @@
 )
 
 (defconst my-protobuf-style
-  '((c-basic-offset . 2)
+  '((c-basic-offset . 4)
     (indent-tabs-mode . nil)))
 
 (add-hook 'protobuf-mode-hook
@@ -264,28 +260,28 @@
 (setq  compilation-scroll-output t)
 
 
-;; (defun compile-pkg (&optional command startdir)
-;;   "Compile a package, moving up to the parent directory
-;;   containing configure.ac, if it exists. Start in startdir if defined,
-;;   else start in the current directory."
-;;   (interactive)
+(defun compile-pkg (&optional command startdir)
+  "Compile a package, moving up to the parent directory
+  containing configure.ac, if it exists. Start in startdir if defined,
+  else start in the current directory."
+  (interactive)
 
-;;   (let ((dirname)
-;; 	(dir-buffer nil))
-;;     (setq startdir (expand-file-name (if startdir startdir ".")))
-;;     (setq command  (if command command compile-command))
+  (let ((dirname)
+	(dir-buffer nil))
+    (setq startdir (expand-file-name (if startdir startdir ".")))
+    (setq command  (if command command compile-command))
 
-;;     (setq dirname (upward-find-file "configure.ac" startdir))
-;;     (setq dirname (if dirname dirname (upward-find-file "Makefile" startdir)))
-;;     (setq dirname (if dirname dirname (expand-file-name ".")))
-;;     ; We've now worked out where to start. Now we need to worry about
-;;     ; calling compile in the right directory
-;;     (save-excursion
-;;       (setq dir-buffer (find-file-noselect dirname))
-;;       (set-buffer dir-buffer)
-;;       (compile command)
-;; ;      (kill-buffer dir-buffer)
-;;       )))
+    (setq dirname (upward-find-file "configure.ac" startdir))
+    (setq dirname (if dirname dirname (upward-find-file "Makefile" startdir)))
+    (setq dirname (if dirname dirname (expand-file-name ".")))
+    ; We've now worked out where to start. Now we need to worry about
+    ; calling compile in the right directory
+    (save-excursion
+      (setq dir-buffer (find-file-noselect dirname))
+      (set-buffer dir-buffer)
+      (compile command)
+;      (kill-buffer dir-buffer)
+      )))
 
 (defun upward-find-file (filename &optional startdir)
   "Move up directories until we find a certain filename. If we
@@ -314,6 +310,9 @@
     ; return statement
     (if found dirname nil)))
 
+
+setq(dave-build-dir "build")
+
 (defun compile-next-makefile ()                                                           
   (interactive)                                                                           
   (let* ((default-directory (or (upward-find-file "build") "."))                       
@@ -321,7 +320,7 @@
                                   compile-command)))                                      
     (compile compile-command))) 
 
-(setq compile-command "make -j8")
+(setq compile-command "docker exec -w ${PWD} -t dude ninja")
 
 (defun std-compile ()
   "Like 'compile', but uses compile-pkg"
