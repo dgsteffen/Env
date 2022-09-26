@@ -311,12 +311,12 @@
     (if found dirname nil)))
 
 
-setq(dave-build-dir "build")
+(setq dave-dir "build")
 
 (defun compile-next-makefile ()                                                           
   (interactive)                                                                           
-  (let* ((default-directory (or (upward-find-file "build") "."))                       
-         (compile-command (concat "cd " default-directory "/build && "                          
+  (let* ((default-directory (or (upward-find-file dave-dir) "."))                       
+         (compile-command (concat "cd " default-directory "/" dave-dir " && "                          
                                   compile-command)))                                      
     (compile compile-command))) 
 
