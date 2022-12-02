@@ -100,9 +100,10 @@ xrdb -merge ~/.Xdefaults
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/local/dev/lib64
 
 
-###  Set up git email depending on hostname
+if ! in_docker; then
+    eval $(thefuck --alias 2>/dev/null) 
+fi
 
-eval $(thefuck --alias 2>/dev/null) 
 source ~/.bash_here
 
 git config --global user.email dsteffen@scitec.com
@@ -130,3 +131,5 @@ source /opt/rh/gcc-toolset-11/enable
 
 
 #ssh-add ~/.ssh/id_rsa
+
+eval "$(thefuck --alias)"
