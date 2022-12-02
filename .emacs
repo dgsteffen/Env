@@ -252,8 +252,6 @@
 (setq python-fill-docstring-style 'DJANGO)
 
 
-
-
 ;;compiling
 
 
@@ -429,8 +427,29 @@
 (fset 'itemz
    [?\\ ?b ?e ?g ?i ?n ?\{ ?i ?t ?e ?m ?i ?z ?e ?\} ?\[ ?< ?+ ?- ?> ?\] return ?\\ ?e ?n ?d ?\{ ?i ?t ?e ?m ?i ?z ?e ?\} ?\C-a return up])
 
-(fset 'vrbtm
-   [?\{ ?\\ ?s ?c ?r ?i ?p ?t ?s ?i ?z ?e ?\\ ?b ?e ?g ?i ?n ?\{ ?v ?e ?r ?b ?a ?t ?i ?m ?\} return ?\\ ?e ?n ?d ?\{ ?v ?a ?r backspace backspace ?e ?r ?b ?a ?t ?i ?m ?\} return ?\} left up return up])
+(defun vrbtm ()
+  (interactive)
+  (insert "\\begin{lstlisting}
+\\end{lstlisting}")
+  (previous_line)
+  (previous_line)
+  )
+
+
+(defun mkframe()
+  (interactive)
+  (insert "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\\begin{frame}[fragile]
+\\frametitle{}
+
+\\end{frame}
+")
+  (previous_line)
+  (previous_line) 
+  )
+
 
 (fset 'unused-param
    "/* \346 */")
@@ -460,7 +479,8 @@
 ;(bind-key "C-_" 'text-scale-decrease)
 
 
-(global-set-key [f1] 'auto-fill-mode		)
+(global-set-key [f1] 'itemz		)
+(global-set-key [C-f1] 'auto-fill-mode		)
 (global-set-key [M-f1] 'delete-indentation      )
 (global-set-key [(shift f1)] 'org-mode          )
 
