@@ -3,7 +3,7 @@
 	email = dsteffen@scitec.com
 [core]
 	excludesfile = /home/dgsteffen/.gitignore
-        editor = emacs -nw
+        editor = emacs
 [status]
 	color = auto
 [color]
@@ -35,13 +35,18 @@
 [mergetool "kdiff3"]
 	trustExitCode = false
 
+[submodule]
+        fetchjobs=6
+
+
 [alias]
      df   = difftool
      get  = fetch origin --prune
      cleanup = clean -fdx
      rebc = rebase --continue
      sup  = submodule update
-     supr = submodule update --recursive
+     supr = submodule update --init --recursive
+     subreset = submodule foreach --recursive git reset --hard
      cam  = commit --amend
      ci   = commit
      co   = checkout
@@ -52,3 +57,6 @@
 	required = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
+[gui]
+	fontui = -family \"DejaVu Sans\" -size 12 -weight normal -slant roman -underline 0 -overstrike 0
+	fontdiff = -family \"DejaVu Sans Mono\" -size 12 -weight normal -slant roman -underline 0 -overstrike 0

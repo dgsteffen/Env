@@ -20,6 +20,10 @@ alias dvips='dvips -t letter'
 #function e() { ~/bin/emacs-client-wrap.py $@ 2>&1 | grep -v Gtk-WARNING & }
 function e() { /home/dsteffen/bin/emacs-wrap.py $@ 2>&1 | grep -v Gtk-WARNING & }
 
+# start emacs and org-roam
+
+alias org='/home/dsteffen/bin/emacs-wrap.py ~/org-roam/20230123105054-top.org  &'
+
 
 alias pip='pip3'
 alias pip2='/usr/bin/pip'
@@ -53,7 +57,7 @@ alias cmake='cmake3'
 alias gitclean='git clean -fdx'
 alias git_date='git checkout $(git rev-list -n1 --before="Mon Dec 31  2007 23:59:59") '
 alias kgdiff='git df'
-alias g='gitk --all &'
+alias g='cp -n ~/gitk_hard ~/.gitk; gitk --all &'
 alias gst='git status'
 
 function gup() { git checkout $1; git fetch origin && git rebase --rebase-merges origin/$1 $1; }
@@ -164,5 +168,5 @@ alias all_single_aliases='compgen -c | grep -x . | sort -u '
 # for char in {A..z}; do type "$char" 2>/dev/null; done
 
 # hamster
-alias ham='flatpak run org.gnome.Hamster > /dev/null 2>&1'
+alias ham='flatpak run org.gnome.Hamster > /dev/null 2>&1 &'
 alias gty='flatpak run com.github.Murmele.Gittyup > /dev/null 2>&1'

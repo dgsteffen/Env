@@ -11,7 +11,10 @@ export RHEL_OLD=artifactory.scitec.com/mdpap/pipeline-rhel-8:74c2c1a59c91d96a6e4
 export RHEL=artifactory.scitec.com/mdpap/pipeline-rhel-8:latest
 
 
-function drun { docker run -v $HOME:$HOME -e HOME=/home/dsteffen --volume="/etc/group:/etc/group:ro" --volume="/etc/passwd:/etc/passwd:ro" --volume="/etc/shadow:/etc/shadow:ro" -it --user 1002:1002 --rm --name dude ${1} bash ; }
+function drun { docker run -v $HOME:$HOME -e HOME=/home/dsteffen --volume="/etc/group:/etc/group:ro" --volume="/etc/passwd:/etc/passwd:ro" --volume="/etc/shadow:/etc/shadow:ro" --cap-add SYS_ADMIN -it --user 1002:1002 --rm --workdir /home/dsteffen --name dude ${1} bash ; }
+
+function drun_home { docker run -v $HOME:$HOME -e HOME=/home/dsteffen --volume="/etc/group:/etc/group:ro" --volume="/etc/passwd:/etc/passwd:ro" --volume="/etc/shadow:/etc/shadow:ro" --cap-add SYS_ADMIN -it --user 1002:1002 --add-host gitlab.scitec.com:10.132.1.70 --rm --workdir /home/dsteffen --name dude ${1} bash ; }
+
 
 # gives full terminal, but can't separat out stderr
 alias d='docker exec -w ${PWD} -t dude'
@@ -21,3 +24,8 @@ alias ds='docker exec -w ${PWD} -t dude'
 
 function dcm { docker exec -w ${PWD} -t dude cmake -GNinja $@ .. ; }
 alias dn='d ninja'
+
+alias todo='e ~/todo-pap.org'
+
+
+export WRK='10.130.6.1'

@@ -128,8 +128,6 @@ source /opt/rh/gcc-toolset-11/enable
 # esac
 
 
+export gittoken=$(cat .ssh/gitlab_token.text)
 
 
-#ssh-add ~/.ssh/id_rsa
-
-eval "$(thefuck --alias)"
